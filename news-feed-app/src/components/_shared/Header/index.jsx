@@ -25,11 +25,13 @@ export default function Header() {
 
       <header className="fixed flex justify-center top-0 left-0 right-0 bg-primary-1 border border-b-[#b4b4b4] z-20 sm:z-5">
         <div className="h-[60px] sm:h-[70px] md:h-[90px] w-[95%] min-w-auto xl:w-[93%] xl:min-w-[1140px] flex flex-wrap items-center justify-between text-center transition-all duration-300 relative">
-          <div className="menu-bar-container text-primary-color">
-            <i className="fa-solid fa-bars"></i>
+          <div>
+            <div className="menu-bar-container text-primary-color">
+              <i className="fa-solid fa-bars"></i>
+            </div>
+            <Logo parentComponent="Header" />
           </div>
-          
-          <Logo parentComponent="Header" />
+
           <HeaderNav />
           <LoginLink />
 
