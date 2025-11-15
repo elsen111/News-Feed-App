@@ -1,6 +1,8 @@
 import Navbar from "../Navbar";
+import Logo from "../Logo";
+import { RiMenuUnfold4Fill } from "react-icons/ri";
 
-export default function HeaderNav() {
+export default function HeaderNav({ menuState, closeMenu }) {
   const links = [
     {
       name: "Home",
@@ -24,36 +26,22 @@ export default function HeaderNav() {
   ];
 
   return (
-    <div className="translate-x-[-1000%] absolute xl:static xl:translate-none transition-all duration-500">
-        <Navbar links={links} parentComponent="Header" />
-
-        {/* <ul className="navbar-list flex list"> */}
-        {/* <Link to="/">Home</Link> */}
-
-        {/* <a
-                      href="#"
-                      className="active-link text-primary-color capitalized fs-16 fw-700 link relative after block transition"
-                    >
-                      {" "}
-                      home{" "}
-                    </a> */}
-
-        {/* <a
-            href="./suggested.html"
-            className="text-primary-color capitalized fs-16 fw-700 link relative after block transition"
-          >
-            {" "}
-            for you{" "}
-          </a>
-
-          <a
-            href="./saved.html"
-            className="text-primary-color capitalized fs-16 fw-700 link relative after block transition"
-          >
-            {" "}
-            saved{" "}
-          </a> */}
-        {/* </ul> */}
+    <div
+      className={`
+      ${menuState ? "translate-x-0" : "-translate-x-full"}
+       absolute top-0 left-0 w-[80%] h-screen bg-white p-5 xl:p-0 xl:bg-transparent xl:h-fit xl:static xl:w-auto xl:translate-none transition-all duration-700
+    `}
+    >
+      <RiMenuUnfold4Fill
+        size={34}
+        color="#555"
+        className="absolute right-2 xl:hidden"
+        onClick={closeMenu}
+      />
+      <div className="block xl:hidden pt-10">
+        <Logo parentComponent={"Header"} menuState={menuState} />
+      </div>
+      <Navbar links={links} parentComponent="Header" />
     </div>
   );
 }

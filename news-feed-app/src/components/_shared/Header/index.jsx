@@ -1,38 +1,35 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import { RiMenuUnfold3Fill } from "react-icons/ri";
 import Logo from "../Logo";
 import LoginLink from "./LoginLink";
 import HeaderNav from "./HeaderNav";
 
 export default function Header() {
+  const [menuState, SetMenuState] = useState(false)
+
+  const openMenu = () => SetMenuState(true);
+  const closeMenu = () => SetMenuState(false);
+
   return (
     <>
-      {/* Navigation Links */}
-      {/* <nav style={{ marginBottom: "20px" }}>
-        <Link to="/" style={{ margin: "0 10px" }}>
-          Home
-        </Link>
-        <Link to="/category" style={{ margin: "0 10px" }}>
-          Category
-        </Link>
-        <Link to="/suggested" style={{ margin: "0 10px" }}>
-          Suggested
-        </Link>
-        <Link to="/saved" style={{ margin: "0 10px" }}>
-          Saved
-        </Link>
-      </nav> */}
-
       <header className="fixed flex justify-center top-0 left-0 right-0 bg-primary-1 border border-b-[#b4b4b4] z-20 sm:z-5">
-        <div className="h-[60px] sm:h-[70px] md:h-[90px] w-[95%] min-w-auto xl:w-[93%] xl:min-w-[1140px] flex flex-wrap items-center justify-between text-center transition-all duration-300 relative">
-          <div>
-            <div className="menu-bar-container text-primary-color">
-              <i className="fa-solid fa-bars"></i>
-            </div>
+        <div className="h-[60px] sm:h-[70px] md:h-[90px] w-[95%] min-w-auto xl:w-[93%] xl:min-w-[1140px] flex flex-wrap items-center justify-between text-center transition-all duration-300">
+          <div className="flex items-center justify-start gap-0.5 sm:gap-1">
+            <RiMenuUnfold3Fill 
+              size={34} 
+              color="#555" 
+              className="block xl:hidden" 
+              onClick={openMenu}
+            />
+
             <Logo parentComponent="Header" />
           </div>
 
-          <HeaderNav />
+          <HeaderNav
+            menuState = {menuState}
+            closeMenu = {closeMenu}
+          />
           <LoginLink />
 
           {/* <!-- Main Navigation --> */}
