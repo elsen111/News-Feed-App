@@ -1,10 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { ThemeContext } from "../../../pages/layout";
 
 const Theme = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if(theme === "light") {
+        document.body.style.backgroundColor = "var(--color-light-theme)"
+    } else {
+        document.body.style.backgroundColor = "var(--color-dark-theme)"
+    }
+  })
 
   const changeTheme = () => {
     switch (theme) {
