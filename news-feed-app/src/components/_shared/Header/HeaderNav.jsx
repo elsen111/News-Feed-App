@@ -49,13 +49,13 @@ export default function HeaderNav({ menuState, closeMenu }) {
       ref={navbarRef}
       className={`
         ${menuState ? "translate-x-0" : "-translate-x-full"}
-        absolute top-0 z-1000 left-0 w-[75%] flex flex-col sm:w-[40%] md:w-[40%] h-screen bg-white p-5 xl:p-0 xl:bg-transparent xl:h-fit xl:static xl:w-auto xl:translate-none transition-all duration-700
+        absolute top-0 z-1000 left-0 w-[75%] flex flex-col sm:w-[40%] md:w-[40%] h-screen bg-primary-2 p-5 xl:p-0 xl:bg-transparent xl:h-fit xl:static xl:w-auto xl:translate-none transition-all duration-700
       `}
     >
       <RiMenuUnfold4Fill
         size={34}
-        color="#555"
-        className="absolute right-2 cursor-pointer xl:hidden"
+        // color="#555"
+        className="absolute right-2 cursor-pointer xl:hidden text-primary1"
         onClick={closeMenu}
       />
       <div className="block xl:hidden pt-10">

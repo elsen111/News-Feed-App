@@ -5,6 +5,7 @@ import Logo from "../Logo";
 import LoginLink from "./LoginLink";
 import HeaderNav from "./HeaderNav";
 import Theme from "./Theme";
+import Search from "./Search";
 
 export default function Header() {
   const [menuState, SetMenuState] = useState(false)
@@ -26,15 +27,14 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed flex justify-center top-0 left-0 right-0 bg-light-theme border border-b-[#b4b4b4] z-20 sm:z-5
+      <header className={`fixed flex justify-center top-0 left-0 right-0 bg-primary-2 border-b border-[#b4b4b4] z-20 sm:z-5
          ${menuState ? " after:opacity-100 after:pointer-events-auto" : "after:opacity-0 after:pointer-events-none"}
-         after:transition-opacity after:h-screen after:duration-500 after:content-[''] after:w-screen after:bg-black/55 after:absolute after:z-0 after:top-0 after:left-0`}>
+         after:transition-opacity after:h-screen after:duration-500 after:content-[''] after:w-screen after:bg-black/70 after:absolute after:z-0 after:top-0 after:left-0`}>
         <div className="h-[60px] sm:h-[70px] md:h-[90px] w-[95%] min-w-auto xl:w-[93%] xl:min-w-[1140px] flex flex-wrap items-center justify-between text-center transition-all duration-300">
-          <div className="flex items-center justify-start gap-0.5 sm:gap-1">
+          <div className="flex items-center justify-start gap-1 sm:gap-4">
             <RiMenuUnfold3Fill 
               size={34} 
-              color="#555" 
-              className="block cursor-pointer xl:hidden" 
+              className="block cursor-pointer xl:hidden text-primary-1" 
               onClick={openMenu}
             />
 
@@ -47,18 +47,12 @@ export default function Header() {
           />
 
           <div className="flex items-center gap-2 sm:gap-5">
+            <Search />
             <div className="hidden sm:block">
               <LoginLink />
             </div>
             <Theme />
           </div>
-
-
-          {/* <!-- Main Navigation --> */}
-          {/* <div className="top-menu flex sp-between transition relative after"> */}
-          {/* <div className="x-mark-container">
-              <i className="fa-solid fa-xmark text-primary-color"></i>
-            </div> */}
 
           {/* <div className="right-side f-height flex"> */}
           {/* <!-- Search Box --> */}

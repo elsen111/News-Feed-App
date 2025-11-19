@@ -3,13 +3,39 @@
 
 @theme {
     --color-primary-1: #555;
-    --color-light-theme: #f8f9fa;
-    --color-dark-theme: #333;
+    --color-primary-2: #f8f9fa;
+    --color-search-icon: #75899e;
+    --color-search-modal: #e1e1e1;
+    /* --color-light-theme: #f8f9fa; */
+    /* --color-dark-theme: #333; */
+}
+
+/* Light theme (default) */
+:root {
+    --color-primary-1: #555;
+    --color-primary-2: #f8f9fa;
+    --color-search-icon: #75899e;
+    --color-search-modal: #e1e1e1;
+}
+
+/* Dark theme */
+.dark {
+    --color-primary-1: #f8f9fa;
+    --color-primary-2: #555;
+    --color-search-icon: #e3f1ff;
+    --color-search-modal: #717274;
 }
 
 body {
     font-family: "Roboto", sans-serif;
-    background-color: var(--color-light-theme);
+    background-color: var(--color-primary-2);
+    color: var(--color-primary-1);
     transition: all;
     transition-duration: 0.3s;
+}
+
+/* Changing browser default styles */
+* {
+    box-sizing: border-box;
+    outline: none;
 }

@@ -6,13 +6,9 @@ import { ThemeContext } from "../../../pages/layout";
 const Theme = () => {
   const { theme, setTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    if(theme === "light") {
-        document.body.style.backgroundColor = "var(--color-light-theme)"
-    } else {
-        document.body.style.backgroundColor = "var(--color-dark-theme)"
-    }
-  })
+  // useEffect(() => {
+  //   document.documentElement.classList.toggle("dark")
+  // }, [theme])
 
   const changeTheme = () => {
     switch (theme) {
@@ -26,13 +22,15 @@ const Theme = () => {
       default:
         break;
     }
+
+    document.documentElement.classList.toggle("dark")
   };
 
   console.log(theme);
   return (
     <div
       onClick={changeTheme}
-      className="flex relative items-center cursor-pointer h-10 border-[3px] border-[#ccc] rounded-[18px] w-[60px] sm:w-[70px] bg-[#eee]"
+      className="flex relative items-center cursor-pointer h-9 sm:h-10 border-[3px] border-[#ccc] rounded-[18px] w-[60px] sm:w-[70px] bg-[#eee]"
     >
       <div className={`
         w-[50%] h-full flex items-center relative transition duration-300
@@ -41,7 +39,7 @@ const Theme = () => {
         <MdDarkMode
           size={25}
           className={`
-            w-full absolute right-0 transition duration-300
+            w-full absolute right-0 transition duration-300 text-[#555]
             ${theme === "light" ? "opacity-0" : "opacity-100"}
         `}
         />
