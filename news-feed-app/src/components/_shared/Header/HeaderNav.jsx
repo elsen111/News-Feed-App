@@ -3,10 +3,13 @@ import Logo from "../Logo";
 import LoginLink from "./LoginLink";
 import { RiMenuUnfold4Fill } from "react-icons/ri";
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function HeaderNav({ menuState, closeMenu }) {
   const navbarRef = useRef();
+  const location = useLocation()
 
+  // To close the navbar when clicking outside except it for mobile view
   useEffect(() => {
       const handleClick = (e) => {
           if (!navbarRef.current.contains(e.target)) {
@@ -21,6 +24,11 @@ export default function HeaderNav({ menuState, closeMenu }) {
     return () =>
       window.removeEventListener("mousedown", handleClick);
   }, [menuState]);
+
+  // To close the navbar by default when navigating between pages for mobile view
+  useEffect(() => {
+    if(menuState) closeMenu()
+  }, [location.pathname])
 
   const links = [
     {

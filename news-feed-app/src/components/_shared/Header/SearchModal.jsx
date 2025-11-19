@@ -13,7 +13,7 @@ export default function SearchModal({modalState}) {
           type="text"
           className="w-full h-[80%] text-[#444] placeholder:italic text-[18px]"
         />
-        <IoMdSearch className="text-[35px] transition-all duration-300 hover:scale-125 cursor-pointer text-[#444]" />
+        <IoMdSearch className="text-[35px] transition-all duration-300 hover:scale-115 cursor-pointer text-[#444]" />
       </div>
     </div>
   );
