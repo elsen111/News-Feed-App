@@ -27,7 +27,7 @@ export default function HeaderNav({ menuState, closeMenu }) {
 
   // To close the navbar by default when navigating between pages for mobile view
   useEffect(() => {
-    if(menuState) closeMenu()
+    closeMenu()
   }, [location.pathname])
 
   const links = [
