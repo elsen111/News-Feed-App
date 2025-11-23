@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { ThemeContext } from "../../../pages/layout";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 export default function MenuLink({name, path}) {
   const {theme} = useContext(ThemeContext)

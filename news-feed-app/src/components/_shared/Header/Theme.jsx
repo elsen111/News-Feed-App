@@ -1,14 +1,10 @@
 import { useContext, useEffect } from "react";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
-import { ThemeContext } from "../../../pages/layout";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const Theme = () => {
   const { theme, setTheme } = useContext(ThemeContext);
-
-  // useEffect(() => {
-  //   document.documentElement.classList.toggle("dark")
-  // }, [theme])
 
   const changeTheme = () => {
     switch (theme) {

@@ -1,8 +1,9 @@
-import React from 'react'
-import Text from '../../components/_shared/Text'
+import HomeBanner from "../../components/HomePage/HomeBanner"
 
 export default function Home() {
   return (
-    <div><Text /></div>
+    <>
+      <HomeBanner />
+    </>
   )
 }
