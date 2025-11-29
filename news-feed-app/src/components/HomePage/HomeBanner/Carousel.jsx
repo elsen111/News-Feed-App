@@ -103,7 +103,7 @@ const Carousel = () => {
               cursor: "pointer",
             }}
 
-            className="w-[10px] h-[10px] sm:w-[12px] sm:h-[12px]"
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3"
           />
         ))}
       </div>
