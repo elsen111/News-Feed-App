@@ -55,12 +55,11 @@ const Carousel = () => {
   };
 
   return (
-    <div className="h-full" ref={containerRef} style={{ overflow: "hidden", width: "100%" }}>
+    <div className="h-full w-full" ref={containerRef} style={{ overflow: "hidden" }}>
       <div
-        className="h-[80%]"
+        className="md:h-[96%] h-[94%] flex"
         ref={contentRef}
         style={{
-          display: "flex",
           transform: `translateX(-${x}px)`,
           width: `${carouselItems.length * 100}%`,
         }}
@@ -99,12 +98,12 @@ const Carousel = () => {
             key={idx}
             onClick={() => handleDotClick(idx)}
             style={{
-              width: "12px",
-              height: "12px",
               borderRadius: "50%",
               background: idx === activeIndex ? "#000" : "#ccc",
               cursor: "pointer",
             }}
+
+            className="w-[10px] h-[10px] sm:w-[12px] sm:h-[12px]"
           />
         ))}
       </div>
