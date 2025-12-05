@@ -6,6 +6,8 @@ import Category from "../pages/category/page";
 import Suggestion from "../pages/suggestion/page";
 import Error from "../pages/error/page";
 
+import { homeLoader } from "../api/loaders";
+
 export const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +16,7 @@ export const appRouter = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: null,
+        // loader: homeLoader,
       },
 
       {

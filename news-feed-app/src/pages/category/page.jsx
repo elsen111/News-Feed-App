@@ -1,7 +1,16 @@
 import React from "react";
 // import Carousel from "./Carousel";
+import { useState } from "react";
 
 export default function Category() {
+const [newsList, setNewsList] = useState([]);
+
+    // useEffect(() => {
+    //   fetch("https://newsdata.io/api/1/latest?apikey=pub_e1cccdc48235436aabc537a2f0455c38&size=6")
+    //   .then(response => response.json())
+    //   .then(data => setNewsList(data.results))
+    //   console.log(newsList);
+    // }, [newsList]);
   return (
     <div>
       {/* <div style={{ height: "600px", position: "relative" }}>
@@ -16,6 +25,7 @@ export default function Category() {
       </div> */}
 
       Category
+
     </div>
   );
 }
