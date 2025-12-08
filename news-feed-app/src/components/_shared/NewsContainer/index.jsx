@@ -1,5 +1,7 @@
+import { useLocation } from "react-router-dom";
 import NewsCard from "../NewsCard";
-import {useLocation} from "react-router-dom";
+import LoaderButton from "../Buttons/LoaderButton";
+import LinkButton from "../Buttons/LinkButton";
 
 const newsList = [
   {
@@ -53,7 +55,7 @@ const newsList = [
     source_name: "Khazar News",
   },
 
-    {
+  {
     article_id: "wb",
     link: "https://www.polityka.pl/tygodnikpolityka/kultura/2324629,1,architektura-w-najlepszym-wydaniu-nowosci-wydawnicze-niaiu.read",
     title:
@@ -102,15 +104,23 @@ const newsList = [
     category: "politics",
     image_url: "../../../../public/images/dummy_pics/pic4.jpg",
     source_name: "Khazar News",
-  }
+  },
 ];
 
 export default function NewsContainer() {
+  const { pathname } = useLocation();
+
   return (
-    <section className="grid grid-cols-1 gap-y-[30px] gap-x-5 sm:gap-y-[50px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {newsList.map((news) => (
-        <NewsCard key={news.article_id} {...news} />
-      ))}
+    <section className="flex flex-col justify-center items-center gap-5 sm:gap-[35px]">
+      <section className="grid grid-cols-1 gap-y-[30px] gap-x-5 sm:gap-y-[50px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {newsList.map((news) => (
+          <NewsCard key={news.article_id} {...news} />
+        ))}
+      </section>
+      
+      <LoaderButton />
+
+      {pathname === '/' && <LinkButton />}
     </section>
   );
 }

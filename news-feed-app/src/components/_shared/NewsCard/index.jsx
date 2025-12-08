@@ -3,6 +3,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
+import ToolTip from "./ToolTip";
 
 const NewsCard = ({
   link,
@@ -32,13 +33,13 @@ const bookMarkIcon = saved ? (
   );
 
   return (
-    <div className="rounded-t-[10px] overflow-hidden cursor-pointer shadow-md transition duration-300 hover:-translate-y-2.5 hover:shadow-2xl">
+    <div className="rounded-t-[10px] overflow-hidden shadow-md transition duration-300 hover:-translate-y-2.5 hover:shadow-2xl">
       <div className="relative w-full h-auto sm:h-[380px] md:h-[200px]">
         <img src={image_url} className="h-full w-full" />
         <span className="py-1.5 px-2.5 bg-[#147d83] uppercase text-white absolute bottom-0 rounded-tr-[10px] text-[12px] font-bold tracking-[0.5px]">
           {category}
         </span>
-        <div className="absolute group top-0 right-0 w-10 h-10 bg-black/60 flex justify-center items-center transition-all duration-300 hover:bg-[#75bcad]">
+        <div className="absolute group top-0 right-0 w-10 h-10 bg-black/60 flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#75bcad]">
           {pathname == "/saved" ? (
             <FaTrash className={iconStyles} />
           ) : (
@@ -46,8 +47,9 @@ const bookMarkIcon = saved ? (
           )}
         </div>
       </div>
-      <div className="p-[15px] flex flex-col gap-y-[18px] justify-center">
-        <h6>
+      <div className="group p-[15px] flex flex-col gap-y-[18px] justify-center relative">
+        <div className="opacity-0 flex absolute left-0 h-full w-full transition-all duration-300 md:group-hover:opacity-100"> <ToolTip link={link} /> </div>
+        <h6 className="cursor-pointer">
           <a
             href={link}
             target="_blank"
