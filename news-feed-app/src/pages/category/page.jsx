@@ -1,6 +1,7 @@
 import React from "react";
 // import Carousel from "./Carousel";
 import { useState } from "react";
+import Title from "../../components/_shared/Content/Title";
 
 export default function Category() {
 const [newsList, setNewsList] = useState([]);
@@ -25,6 +26,8 @@ const [newsList, setNewsList] = useState([]);
       </div> */}
 
       Category
+
+      <Title />
 
     </div>
   );

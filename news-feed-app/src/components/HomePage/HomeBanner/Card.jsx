@@ -30,7 +30,7 @@ const Card = ({
         loading="lazy"
         className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
       <div
         className="px-4 absolute inset-x-0 bottom-0 flex flex-col gap-2 sm:px-7 pb-2 pt-12 text-white"
         onPointerEnter={onTextHoverStart}
@@ -44,10 +44,10 @@ const Card = ({
         </h3>
         <div className="flex flex-wrap items-center justify-between text-xs text-[#c7c3c3] tracking-[1.5px]">
           <span>{pubDate}</span>
-          <span className="capitalize">{source_name || "Unknown"}</span>
+          <span className="capitalize">{`by ${source_name}` || "Unknown"}</span>
         </div>
       </div>
-      <span className="absolute inset-5 rounded-[24px] border border-white/20 opacity-0 transition duration-300 group-hover:opacity-100" />
+      <span className="absolute inset-5 rounded-3xl border border-white/20 opacity-0 transition duration-300 group-hover:opacity-100" />
     </a>
   );
 };

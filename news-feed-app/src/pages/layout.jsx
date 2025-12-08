@@ -4,8 +4,6 @@ import Header from '../components/_shared/Header'
 import ThemeProvider from '../context/ThemeContext'
 
 export default function Layout() {
-  const [theme, setTheme] = useState("light")
-
   return (
     <ThemeProvider>
         <Header />
