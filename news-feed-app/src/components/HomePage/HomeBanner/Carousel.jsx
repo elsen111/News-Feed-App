@@ -20,7 +20,7 @@ const newsList = [
     link: "https://www.polityka.pl/tygodnikpolityka/kultura/2324629,1,architektura-w-najlepszym-wydawnicze-niaiu.read",
     title:
       "Bakan Göktaş: Kadın milletvekili oranı yüzde 19,8'e yükseldi / Haber eklendi",
-    pubDate: "2025-12-04",
+    pubDate: "2025-01-04",
     category: "politics",
     image_url: "../../../../public/images/dummy_pics/pic2.jpg",
     source_name: "Khazar News",

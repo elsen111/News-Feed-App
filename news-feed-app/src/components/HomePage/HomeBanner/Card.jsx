@@ -1,3 +1,5 @@
+import { formattedDate } from "../../../utils/date";
+
 const Card = ({
   link,
   title,
@@ -43,7 +45,7 @@ const Card = ({
           {title}
         </h3>
         <div className="flex flex-wrap items-center justify-between text-xs text-[#c7c3c3] tracking-[1.5px]">
-          <span>{pubDate}</span>
+          <span>{formattedDate(pubDate)}</span>
           <span className="capitalize">{`by ${source_name}` || "Unknown"}</span>
         </div>
       </div>

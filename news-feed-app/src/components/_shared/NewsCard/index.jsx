@@ -3,6 +3,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useState } from "react";
+import { formattedDate } from "../../../utils/date";
 import ToolTip from "./ToolTip";
 
 const NewsCard = ({
@@ -13,6 +14,7 @@ const NewsCard = ({
   image_url,
   source_name,
 }) => {
+  console.log(pubDate);
   const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
   const iconStyles =
@@ -26,7 +28,7 @@ const NewsCard = ({
     setSaved(false);
   };
 
-const bookMarkIcon = saved ? (
+  const bookMarkIcon = saved ? (
     <FaBookmark className={iconStyles} onClick={handleUnsave} />
   ) : (
     <FaRegBookmark className={iconStyles} onClick={handleSave} />
@@ -48,7 +50,9 @@ const bookMarkIcon = saved ? (
         </div>
       </div>
       <div className="group p-[15px] flex flex-col gap-y-[18px] justify-center relative">
-        <div className="opacity-0 flex absolute left-0 h-full w-full transition-all duration-300 md:group-hover:opacity-100"> <ToolTip link={link} /> </div>
+        <div className="opacity-0 flex absolute left-0 h-full w-full transition-all duration-300 md:group-hover:opacity-100">
+          <ToolTip link={link} />
+        </div>
         <h6 className="cursor-pointer">
           <a
             href={link}
@@ -59,7 +63,7 @@ const bookMarkIcon = saved ? (
           </a>
         </h6>
         <div className="flex justify-between items-center text-[14px] font-normal tracking-[1px]">
-          <span> {pubDate} </span>
+          <span> {formattedDate(pubDate)} </span>
           <span> by {source_name} </span>
         </div>
       </div>

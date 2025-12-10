@@ -11,6 +11,7 @@ import { homeLoader } from "../api/loaders";
 export const appRouter = createBrowserRouter([
   {
     path: "/",
+    errorElement: <Error />,
     element: <Layout />,
     children: [
       {
@@ -34,10 +35,10 @@ export const appRouter = createBrowserRouter([
         element: <Saved />,
       },
 
-      {
-        path: "*",
-        element: <Error />
-      }
+      // {
+      //   path: "*",
+      //   element: <Error />
+      // }
     ],
   },
 ]);
