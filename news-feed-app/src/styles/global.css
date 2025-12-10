@@ -16,6 +16,7 @@
     --color-primary-2: #f8f9fa;
     --color-search-icon: #75899e;
     --color-search-modal: #e1e1e1;
+    --color-category-menu: #ecfeff;
 }
 
 /* Dark theme */
@@ -24,6 +25,7 @@
     --color-primary-2: #555;
     --color-search-icon: #e3f1ff;
     --color-search-modal: #717274;
+    --color-category-menu: #446067;
 }
 
 body {
@@ -42,4 +44,14 @@ body {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Scroll */
+.scroll-hidden {
+  overflow: auto;
+  -ms-overflow-style: none;      
+  scrollbar-width: none;        
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;                
 }

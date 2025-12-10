@@ -34,8 +34,8 @@ export default function SearchModal({ modalState }) {
 
   return (
     <div
-      className={`${modalState ? "opacity-100" : "opacity-0"}
-      absolute top-full flex items-center justify-center w-screen h-[65px] sm:h-[70px] left-0 bg-search-modal transition-all duration-300`}
+      className={`${modalState ? "opacity-100 h-[65px] sm:h-[70px]" : "opacity-0 h-0!"}
+      absolute top-full w-full flex items-center justify-center w-screen h-[65px] sm:h-[70px] left-0 bg-search-modal transition-all duration-500`}
     >
       <div className="flex items-center w-[95%] sm:w-[50%] rounded-3xl border-[3px] border-transparent bg-[#ffffff] gap-1 px-4 transition-all duration-500 focus-within:border-[3px] focus-within:border-cyan-600">
         <input

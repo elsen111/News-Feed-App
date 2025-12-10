@@ -6,7 +6,11 @@ const Title = () => {
   console.log(pathname);
 
   switch (pathname) {
-    case "/":
+    case "/categories":
+      title="breaking news"
+      break;
+
+    case "/categories":
       title="latest news"
       break;
   

@@ -7,7 +7,6 @@ export default function Search({ headerRef }) {
   const location = useLocation();
   const [modalState, setModalState] = useState(false);
   const modalRef = useRef();
-  const toggleRef = useRef();
 
   const handleToggle = (e) => {
     e.stopPropagation()
