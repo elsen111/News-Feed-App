@@ -3,7 +3,7 @@ import NewsCard from "../NewsCard";
 import LoaderButton from "../Buttons/LoaderButton";
 import LinkButton from "../Buttons/LinkButton";
 
-const newsList = [
+let newsList = [
   {
     article_id: "aaab",
     link: "https://www.polityka.pl/tygodnikpolityka/kultura/2324629,1,architektura-w-najlepszym-wydaniu-nowosci-wydawnicze-niaiu.read",
@@ -110,16 +110,18 @@ const newsList = [
 export default function NewsContainer() {
   const { pathname } = useLocation();
 
+  // newsList = (pathname == '/saved') ? [] : newsList;
+
   return (
     <section className="flex flex-col justify-center items-center gap-5 sm:gap-[35px]">
+      { newsList.length == 0 && <p className="text-[16px]"> No news here </p>}
       <section className="grid grid-cols-1 gap-y-[30px] gap-x-5 sm:gap-y-[50px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {newsList.map((news) => (
           <NewsCard key={news.article_id} {...news} />
         ))}
       </section>
       
-      <LoaderButton />
-
+      { newsList.length != 0 && <LoaderButton />}
       {pathname === '/' && <LinkButton />}
     </section>
   );

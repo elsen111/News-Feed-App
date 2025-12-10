@@ -1,7 +1,7 @@
-import React from 'react'
+import SuggestionContent from "../../components/SuggestionPage/SuggestionContent"
 
 export default function Suggestion() {
   return (
-    <div>Suggestion</div>
+    <SuggestionContent />
   )
 }

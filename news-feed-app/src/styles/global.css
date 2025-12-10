@@ -17,6 +17,7 @@
     --color-search-icon: #75899e;
     --color-search-modal: #e1e1e1;
     --color-category-menu: #ecfeff;
+    --color-filter-icon: #157c82;
 }
 
 /* Dark theme */
@@ -26,6 +27,7 @@
     --color-search-icon: #e3f1ff;
     --color-search-modal: #717274;
     --color-category-menu: #446067;
+    --color-filter-icon: #aef1f4;
 }
 
 body {

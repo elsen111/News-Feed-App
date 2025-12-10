@@ -13,6 +13,14 @@ const Title = () => {
     case "/categories":
       title="latest news"
       break;
+
+    case "/suggested":
+      title="You may want to read"
+      break;
+
+    case "/saved":
+      title="reading list"
+      break;
   
     default:
       title="another title"
