@@ -34,7 +34,7 @@ export default function CategoryMenu() {
   ];
 
   const filterIconClasses =
-    "cursor-pointer text-(--color-filter-icon) transition-all duration-300 hover:scale-125 text-[35px] flex-none";
+    "cursor-pointer text-(--color-filter-icon) transition-all duration-300 hover:scale-125 text-[32px] md:text-[35px] flex-none";
 
   const handleOpenModal = (e) => {
     e.stopPropagation();

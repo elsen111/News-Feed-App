@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Input({ optionList, filterType, isOpen, onToggle }) {
+export default function Input({ optionList, filterType, isOpen, onOpen, onClose, onSelect }) {
   const [value, setValue] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
 
@@ -10,7 +10,7 @@ export default function Input({ optionList, filterType, isOpen, onToggle }) {
 
     if(!newValue.trim()) {
         setFilteredOptions([]);
-        isOpen && onToggle(null);
+        isOpen && onClose();
         return;
     }
 
@@ -20,24 +20,26 @@ export default function Input({ optionList, filterType, isOpen, onToggle }) {
     setFilteredOptions(matches);
 
     if(matches.length != 0 && !isOpen) {
-        onToggle(filterType);
+        onOpen(filterType)
     } else if(matches.length === 0  &&  isOpen) {
-        onToggle(null);
+        onClose();
     }
   };
 
 
-  const handleSelectOption = ( e) => {
+  const handleSelectOption = (e) => {
     e.stopPropagation();
     const selectedValue = e.target.textContent;
+    const valueCode = optionList.filter(option => option.name.toUpperCase() === selectedValue.toUpperCase())[0].code; 
     setValue(selectedValue);
     setFilteredOptions([]);
-    onToggle(null);
+    onSelect(filterType, valueCode)
+    onClose();
   }
 
   const handleFocus = () => {
     if (filteredOptions.length != 0 && !isOpen) {
-        onToggle(filterType);
+        onOpen(filterType)
     }
   }
 
@@ -64,7 +66,7 @@ export default function Input({ optionList, filterType, isOpen, onToggle }) {
           <ul className="bg-primary-2">
             {filteredOptions.map((option) => {
               return (
-                <li onClick={handleSelectOption} className="transition-all duration-300 py-1 px-[15px] capitalize cursor-pointer hover:bg-gray-200">
+                <li key={Math.random()} onClick={handleSelectOption} className="transition-all duration-300 py-1 px-[15px] capitalize cursor-pointer hover:bg-gray-200">
                   {option.name}
                 </li>
               );
