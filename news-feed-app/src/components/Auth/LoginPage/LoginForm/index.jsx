@@ -178,8 +178,8 @@ export default function LoginContent() {
               onClick={handlePasswordVisibility}
             />
           )}
-          {error.email && (
-            <p className="text-[#d63a3a] text-[12px] mt-1"> {error.email} </p>
+          {error.password && (
+            <p className="text-[#d63a3a] text-[12px] mt-1"> {error.password} </p>
           )}
         </InputContainer>
 
