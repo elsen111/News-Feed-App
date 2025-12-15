@@ -62,7 +62,6 @@ export default function HeaderNav({ menuState, closeMenu }) {
     >
       <RiMenuUnfold4Fill
         size={34}
-        // color="#555"
         className="absolute right-2 cursor-pointer xl:hidden text-primary1"
         onClick={closeMenu}
       />
