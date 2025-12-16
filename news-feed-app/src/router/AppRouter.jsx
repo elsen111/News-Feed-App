@@ -9,7 +9,7 @@ import Login from "../auth/login/page";
 import Signup from "../auth/signup/page";
 import Error from "../pages/error/page";
 
-import { homeLoader } from "../api/loaders";
+import { homePageLoader } from "../api/loaders";
 
 export const appRouter = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const appRouter = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        // loader: homeLoader,
+        loader: homePageLoader,
       },
 
       {

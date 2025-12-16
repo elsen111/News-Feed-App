@@ -39,7 +39,7 @@ const NewsCard = ({
       <div className="relative w-full h-auto sm:h-[380px] md:h-[200px]">
         <img src={image_url} className="h-full w-full" />
         <span className="py-1.5 px-2.5 bg-[#147d83] uppercase text-white absolute bottom-0 rounded-tr-[10px] text-[12px] font-bold tracking-[0.5px]">
-          {category}
+          {category[0]}
         </span>
         <div className="absolute group top-0 right-0 w-10 h-10 bg-black/60 flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#75bcad]">
           {pathname == "/saved" ? (
@@ -63,7 +63,7 @@ const NewsCard = ({
           </a>
         </h6>
         <div className="flex justify-between items-center text-[14px] font-normal tracking-[1px]">
-          <span> {formattedDate(pubDate)} </span>
+          <span> {formattedDate(pubDate).split(" ").slice(0,3).join(" ")} </span>
           <span> by {source_name} </span>
         </div>
       </div>

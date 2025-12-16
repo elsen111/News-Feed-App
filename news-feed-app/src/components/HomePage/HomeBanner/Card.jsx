@@ -39,13 +39,13 @@ const Card = ({
         onPointerLeave={onTextHoverEnd}
       >
         <span className="text-xs font-semibold py-1 px-2 tracking-[2px] text-fuchsia-200 bg-[#147d83] uppercase sm:py-2 sm:px-3 rounded-xl w-fit">
-          {category}
+          {category[0]}
         </span>
         <h3 className="text-lg font-bold leading-snug md:text-[1.35rem] truncate">
           {title}
         </h3>
         <div className="flex flex-wrap items-center justify-between text-xs text-[#c7c3c3] tracking-[1.5px]">
-          <span>{formattedDate(pubDate)}</span>
+          <span>{formattedDate(pubDate).split(" ").slice(0,3).join(" ")}</span>
           <span className="capitalize">{`by ${source_name}` || "Unknown"}</span>
         </div>
       </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Card from "./Card";
 
 const dragThreshold = 8;
@@ -181,6 +182,8 @@ const HomeBannerCarousel = () => {
     ? Math.floor(offset / slideWidth) % totalSlides
     : 0;
 
+  const { bannerNewsPosts } = useLoaderData();
+
   return (
     <section
       ref={containerRef}
@@ -200,9 +203,9 @@ const HomeBannerCarousel = () => {
           }
         }}
       >
-        {duplicatedNews.map((news, index) => (
+        {bannerNewsPosts.map(news => (
           <div
-            key={`${news.article_id}-${index}`} 
+            key={news.article_id} 
             className="flex h-full w-full flex-none gap-10"
           >
             <Card
@@ -216,7 +219,7 @@ const HomeBannerCarousel = () => {
       </div>
 
       <div className="absolute bottom-1 left-1/2 flex -translate-x-1/2 gap-3">
-        {newsList.map((item, idx) => (
+        {bannerNewsPosts.map((item, idx) => (
           <button
             key={`dot-${item.article_id}-${idx}`}
             type="button"
