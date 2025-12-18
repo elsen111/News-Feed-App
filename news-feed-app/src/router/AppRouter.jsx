@@ -9,7 +9,7 @@ import Login from "../auth/login/page";
 import Signup from "../auth/signup/page";
 import Error from "../pages/error/page";
 
-import { homePageLoader } from "../api/loaders";
+import { homePageLoader, categoriesPageLoader } from "../api/loaders";
 
 export const appRouter = createBrowserRouter([
   {
@@ -26,6 +26,7 @@ export const appRouter = createBrowserRouter([
       {
         path: "categories",
         element: <Categories />,
+        loader: categoriesPageLoader
       },
 
       {

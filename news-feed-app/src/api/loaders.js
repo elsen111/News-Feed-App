@@ -1,19 +1,29 @@
-import { useFetch } from "../hooks/useFetch"
 import { fetchData } from "./fetchData";
-const  API_LINK = "https://newsdata.io/api/1/latest?apikey=pub_e1cccdc48235436aabc537a2f0455c38";
 
 export const homePageLoader = async () => {
     try {
         const [bannerNewsData, contentNewsData] = await Promise.all([
-            fetchData(`${API_LINK}&size=5`),
-            fetchData(`${API_LINK}&size=8`)
+            fetchData('&size=5'),
+            fetchData('&size=8'),
         ]);
-
+        
         return {
             bannerNewsPosts: bannerNewsData.results,
-            contentNewsPosts: contentNewsData.results
+            contentNewsPosts: contentNewsData.results,
+            nextPage: bannerNewsData.nextPage,
         }
     } catch (error) {
         throw new Response("Failed to load news", {status: 500});
     }
 };
+
+export const categoriesPageLoader = async () => {
+    try {
+        const contentNewsData = await fetchData('&size=8');
+        
+        return { contentNewsPosts: contentNewsData.results, nextPage: contentNewsData.nextPage };
+    } catch (error) {
+        throw new Response("Failed to load news", {status: 500});
+        
+    }
+}

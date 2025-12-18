@@ -3,10 +3,11 @@ import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
 
 export default function HomeContent() {
-  const { contentNewsPosts } = useLoaderData();
+  const { contentNewsPosts, nextPage } = useLoaderData();
+  
   return (
     <Content>
-        <NewsContainer newsPosts={ contentNewsPosts } />
+        <NewsContainer newsPosts={ contentNewsPosts } nextPageId={ nextPage } />
     </Content>
   )
 }
