@@ -1,10 +1,15 @@
 import { useRef, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilterOptions, fetchFilteredNews } from "../../../redux/features/filterSlice";
 import DropDown from "./DropDown";
 import Input from "./Input";
 import { countries } from "../../../api/countries";
 import { languages } from "../../../api/languages";
 
 export default function FilterModal({ modalOpen, handleCloseModal }) {
+  const dispatch = useDispatch();
+  const filterOptions = useSelector((state) => state.filters);
+
   const defaultFilterOptions = {
     category: "all categories",
     time: "all time",
@@ -13,7 +18,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     language: null,
   };
   const [activeControl, setActiveControl] = useState(null);
-  const [filterOptions, setFilterOptions] = useState(defaultFilterOptions);
+  // const [filterOptions, setFilterOptions] = useState(defaultFilterOptions);
 
   const categoryFilterList = [
     {
@@ -55,6 +60,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
       categoryOptions: ["other"],
     },
   ];
+
   const timeFilterList = [
     "all time",
     "last hour",
@@ -111,14 +117,16 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
 
   const handleSelect = (filterType, selectedValue) => {
     if (selectedValue) {
-      setFilterOptions((prev) => ({ ...prev, [filterType]: selectedValue }));
+      // setFilterOptions((prev) => ({ ...prev, [filterType]: selectedValue }));
+      dispatch(setFilterOptions({ filterType, value: selectedValue}))
     }
 
     setActiveControl(null);
   };
 
   const handleSubmitFilter = () => {
-    console.log(filterOptions);
+    // console.log(filterOptions);
+    dispatch(fetchFilteredNews());
   };
 
   return (
