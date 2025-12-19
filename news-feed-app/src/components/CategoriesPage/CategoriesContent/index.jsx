@@ -25,7 +25,7 @@ export default function CategoriesContent() {
       try {
         const filterParams = normalizedFilterParams();
         const delay = new Promise((resolve) => setTimeout(resolve, 1000));
-        const fetchPromise = fetchData(filterParams);
+        const fetchPromise = fetchData(`&size=8${filterParams}`);
         console.log(filterPayload);
         const [response] = await Promise.all([fetchPromise, delay]);
 

@@ -124,7 +124,7 @@ export default function NewsContainer({ newsPosts, nextPageId }) {
 
     try {
       const delay = new Promise((resolve) => setTimeout(resolve, 1000));
-      const fetchPromise = fetchData(`&page=${nextNewsPage}`);
+      const fetchPromise = fetchData(`&size=8&page=${nextNewsPage}`);
       const [response] = await Promise.all([fetchPromise, delay]);
 
       const nextNewsPosts = response.results ?? [];

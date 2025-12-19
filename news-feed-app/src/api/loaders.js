@@ -10,7 +10,7 @@ export const homePageLoader = async () => {
         return {
             bannerNewsPosts: bannerNewsData.results,
             contentNewsPosts: contentNewsData.results,
-            nextPage: bannerNewsData.nextPage,
+            nextPage: contentNewsData.nextPage,
         }
     } catch (error) {
         throw new Response("Failed to load news", {status: 500});
