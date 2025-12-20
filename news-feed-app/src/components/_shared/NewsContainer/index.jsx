@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { fetchData } from "../../../api/fetchData";
+
 import NewsCard from "../NewsCard";
 import LoaderButton from "../Buttons/LoaderButton";
 import LinkButton from "../Buttons/LinkButton";
-import { useState } from "react";
 
 // let newsList = [
 //   {
@@ -109,11 +112,14 @@ import { useState } from "react";
 //   },
 // ];
 
-export default function NewsContainer({ newsPosts, nextPageId }) {
+export default function NewsContainer({ newsPosts, nextPageId, filterParams = null }) {
   const { pathname } = useLocation();
   const [newsList, setNewsList] = useState(newsPosts);
   const [nextNewsPage, setNextNewsPage] = useState(nextPageId);
   const [loading, setLoading] = useState(false);
+
+  const filters = useSelector(state => state.filters);
+  const { appliedToken } = filters;
 
   const showLoaderButton = (newsList.length != 0) && nextNewsPage;
 
@@ -123,8 +129,16 @@ export default function NewsContainer({ newsPosts, nextPageId }) {
     setLoading(true);
 
     try {
+      let fetchPromise;
       const delay = new Promise((resolve) => setTimeout(resolve, 1000));
-      const fetchPromise = fetchData(`&size=8&page=${nextNewsPage}`);
+
+      if(filterParams) {
+        const params = appliedToken ? `&page=${nextNewsPage}${filterParams}` : filterParams;
+        fetchPromise = fetchData(`&size=8${params}`);
+      } else {
+        fetchPromise = fetchData(`&size=8&page=${nextNewsPage}`);
+      }
+
       const [response] = await Promise.all([fetchPromise, delay]);
 
       const nextNewsPosts = response.results ?? [];

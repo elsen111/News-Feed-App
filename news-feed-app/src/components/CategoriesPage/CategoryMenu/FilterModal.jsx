@@ -116,16 +116,16 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
   };
 
   const handleSelect = (filterType, selectedValue) => {
-    if (selectedValue) {
+    // if (selectedValue && selectedValue !== "All Categories") {
       // setFilterOptions((prev) => ({ ...prev, [filterType]: selectedValue }));
-      dispatch(setFilterOptions({ filterType, value: selectedValue}))
-    }
+    // }
+    dispatch(setFilterOptions({ filterType, value: selectedValue }))
 
     setActiveControl(null);
   };
 
   const handleSubmitFilter = () => {
-    // console.log(filterOptions);
+    console.log(filterOptions);
     dispatch(fetchFilteredNews());
   };
 

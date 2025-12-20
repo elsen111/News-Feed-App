@@ -16,7 +16,7 @@ const filterSlice = createSlice({
         setFilterOptions: (state, action) => {
             const { filterType, value } = action.payload;
             state[filterType] = value;
-            console.log("State in slice: " + state.country);
+            // console.log("State in slice: " + state.country);
         },
 
         fetchFilteredNews: (state) => {state.appliedToken += 1},

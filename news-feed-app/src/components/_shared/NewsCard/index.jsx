@@ -14,7 +14,7 @@ const NewsCard = ({
   image_url,
   source_name,
 }) => {
-  console.log(pubDate);
+  // console.log(pubDate);
   const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
   const iconStyles =

@@ -26,7 +26,7 @@ export default function CategoriesContent() {
         const filterParams = normalizedFilterParams();
         const delay = new Promise((resolve) => setTimeout(resolve, 1000));
         const fetchPromise = fetchData(`&size=8${filterParams}`);
-        console.log(filterPayload);
+        // console.log(filterPayload);
         const [response] = await Promise.all([fetchPromise, delay]);
 
         const nextNewsPosts = response.results ?? [];
@@ -41,6 +41,7 @@ export default function CategoriesContent() {
     };
 
     fetchFilteredNews();
+    console.log(nextPageId);
 
     return () => {
       cancelled = true;
@@ -48,7 +49,7 @@ export default function CategoriesContent() {
   }, [filters.appliedToken]);
 
   const normalizedFilterParams = () => {
-    const categoryParam = (filterPayload.category != 'all categories') ? `&category=${filterPayload.category}` : '';  
+    const categoryParam = (filterPayload.category.toLowerCase() != 'all categories') ? `&category=${filterPayload.category}` : '';  
     const countryParam = (filterPayload.country != null) ? `&country=${filterPayload.country}` : '';  
     const languageParam = (filterPayload.language != null) ? `&language=${filterPayload.language}` : '';  
 
@@ -58,7 +59,7 @@ export default function CategoriesContent() {
   return (
     <Content>
       {isFiltering ? 'Loading' : 
-      <NewsContainer newsPosts={newsPosts} nextPageId={nextPageId} />
+      <NewsContainer newsPosts={newsPosts} nextPageId={nextPageId} filterParams={normalizedFilterParams()} />
       }
     </Content>
   );

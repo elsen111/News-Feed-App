@@ -10,6 +10,7 @@ export default function Input({ optionList, filterType, isOpen, onOpen, onClose,
 
     if(!newValue.trim()) {
         setFilteredOptions([]);
+        onSelect(filterType, null);
         isOpen && onClose();
         return;
     }
@@ -30,10 +31,10 @@ export default function Input({ optionList, filterType, isOpen, onOpen, onClose,
   const handleSelectOption = (e) => {
     e.stopPropagation();
     const selectedValue = e.target.textContent;
-    const valueCode = optionList.filter(option => option.name.toUpperCase() === selectedValue.toUpperCase())[0].code; 
+    const valueCode = optionList.find(option => option.name.toUpperCase() === selectedValue.toUpperCase()).code; 
     setValue(selectedValue);
     setFilteredOptions([]);
-    onSelect(filterType, valueCode)
+    onSelect(filterType, valueCode);
     onClose();
   }
 

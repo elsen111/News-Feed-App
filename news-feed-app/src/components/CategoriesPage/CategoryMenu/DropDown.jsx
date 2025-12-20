@@ -7,6 +7,7 @@ export default function DropDown({ optionList, filterType, isOpen, onOpen, onClo
   const handleSelectOption = (e) => {
     e.stopPropagation();
     const value = e.target.textContent;
+    // const storedValue = (value === "All Categories") ? null : value;
     setSelectedOption(value);
     onSelect(filterType, value);
     onClose();
