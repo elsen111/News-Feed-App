@@ -112,7 +112,7 @@ import LinkButton from "../Buttons/LinkButton";
 //   },
 // ];
 
-export default function NewsContainer({ newsPosts, nextPageId, filterParams = null }) {
+export default function NewsContainer({ newsPosts, nextPageId, filterParams = null, searchQuery = null }) {
   const { pathname } = useLocation();
   const [newsList, setNewsList] = useState(newsPosts);
   const [nextNewsPage, setNextNewsPage] = useState(nextPageId);
@@ -134,6 +134,9 @@ export default function NewsContainer({ newsPosts, nextPageId, filterParams = nu
 
       if(filterParams) {
         const params = appliedToken ? `&page=${nextNewsPage}${filterParams}` : filterParams;
+        fetchPromise = fetchData(`&size=8${params}`);
+      } else if(searchQuery) {
+        const params = `&page=${nextNewsPage}&q=${searchQuery}`;
         fetchPromise = fetchData(`&size=8${params}`);
       } else {
         fetchPromise = fetchData(`&size=8&page=${nextNewsPage}`);

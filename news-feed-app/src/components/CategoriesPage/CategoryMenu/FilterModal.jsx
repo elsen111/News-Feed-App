@@ -10,13 +10,14 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
   const dispatch = useDispatch();
   const filterOptions = useSelector((state) => state.filters);
 
-  const defaultFilterOptions = {
-    category: "all categories",
-    time: "all time",
-    sort: "sort by date",
-    country: null,
-    language: null,
-  };
+  // const defaultFilterOptions = {
+  //   category: "all categories",
+  //   time: "all time",
+  //   sort: "sort by date",
+  //   country: null,
+  //   language: null,
+  // };
+
   const [activeControl, setActiveControl] = useState(null);
   // const [filterOptions, setFilterOptions] = useState(defaultFilterOptions);
 
@@ -116,9 +117,6 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
   };
 
   const handleSelect = (filterType, selectedValue) => {
-    // if (selectedValue && selectedValue !== "All Categories") {
-      // setFilterOptions((prev) => ({ ...prev, [filterType]: selectedValue }));
-    // }
     dispatch(setFilterOptions({ filterType, value: selectedValue }))
 
     setActiveControl(null);

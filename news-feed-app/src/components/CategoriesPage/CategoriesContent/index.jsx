@@ -36,7 +36,7 @@ export default function CategoriesContent() {
       } catch (error) {
         console.log("Failed to load news", error);
       } finally {
-        if(!cancelled) setIsFiltering(false);
+        if (!cancelled) setIsFiltering(false);
       }
     };
 
@@ -45,22 +45,35 @@ export default function CategoriesContent() {
 
     return () => {
       cancelled = true;
-    }
+    };
   }, [filters.appliedToken]);
 
   const normalizedFilterParams = () => {
-    const categoryParam = (filterPayload.category.toLowerCase() != 'all categories') ? `&category=${filterPayload.category}` : '';  
-    const countryParam = (filterPayload.country != null) ? `&country=${filterPayload.country}` : '';  
-    const languageParam = (filterPayload.language != null) ? `&language=${filterPayload.language}` : '';  
+    const categoryParam =
+      filterPayload.category.toLowerCase() != "all categories"
+        ? `&category=${filterPayload.category}`
+        : "";
+    const countryParam =
+      filterPayload.country != null ? `&country=${filterPayload.country}` : "";
+    const languageParam =
+      filterPayload.language != null
+        ? `&language=${filterPayload.language}`
+        : "";
 
     return `${categoryParam}${countryParam}${languageParam}`;
-  }
+  };
 
   return (
     <Content>
-      {isFiltering ? 'Loading' : 
-      <NewsContainer newsPosts={newsPosts} nextPageId={nextPageId} filterParams={normalizedFilterParams()} />
-      }
+      {isFiltering ? (
+        "Loading"
+      ) : (
+        <NewsContainer
+          newsPosts={newsPosts}
+          nextPageId={nextPageId}
+          filterParams={normalizedFilterParams()}
+        />
+      )}
     </Content>
   );
 }
