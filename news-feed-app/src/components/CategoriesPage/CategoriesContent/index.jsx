@@ -12,13 +12,17 @@ export default function CategoriesContent() {
   const { appliedToken, ...filterPayload } = filters;
   const searchQuery = useSelector((state) => state.search);
   const { query, searchCount } = searchQuery;
+  const categoryMenu = useSelector((state) => state.categoryMenu);
+  const { categoriesParam, categoryFilterCount } = categoryMenu;
 
   const [newsPosts, setNewsPosts] = useState(contentNewsPosts);
   const [nextPageId, setNextPageId] = useState(nextPage);
   const [isFiltering, setIsFiltering] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [categorySearching, setCategorySearching] = useState(false);
   const [filterParams, setFilterParams] = useState();
   const [queryParam, setQueryParam] = useState();
+  const [categoryParam, setCategoryParam] = useState();
 
   useEffect(() => {    
     if (!filters.appliedToken) return;
@@ -26,6 +30,7 @@ export default function CategoriesContent() {
     const params = normalizedFilterParams();
     setFilterParams(params);
     setQueryParam(null);
+    setCategoryParam(null);
 
     let cancelled = false;
 
@@ -70,6 +75,7 @@ export default function CategoriesContent() {
 
     setQueryParam(param)
     setFilterParams(null);
+    setCategoryParam(null)
 
     let cancelled = false;
 
@@ -104,6 +110,43 @@ export default function CategoriesContent() {
     };
   }, [searchCount]);
 
+  useEffect(() => {    
+    if (!categoryFilterCount) return;
+
+    const param = categoriesParam;
+    setCategoryParam(param);
+    setFilterParams(null);
+    setQueryParam(null);
+
+    let cancelled = false;
+
+    const fetchSelectedCategories = async () => {
+      setCategorySearching(true);
+      try {
+        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const fetchPromise = fetchData(`&size=8${param}`);
+
+        const [response] = await Promise.all([fetchPromise, delay]);
+
+        const nextNewsPosts = response.results ?? [];
+        const nextId = response.nextPage ?? null;
+        setNewsPosts(nextNewsPosts);
+        setNextPageId(nextId);
+      } catch (error) {
+        console.log("Failed to load news", error);
+      } finally {
+        if (!cancelled) setCategorySearching(false);
+      }
+    };
+
+    fetchSelectedCategories();
+    console.log(nextPageId);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [categoryFilterCount]);
+
   const normalizedFilterParams = () => {
     const categoryParam =
       filterPayload.category.toLowerCase() != "all categories"
@@ -121,7 +164,7 @@ export default function CategoriesContent() {
 
   return (
     <Content>
-      {isFiltering || searching ? (
+      {isFiltering || searching || categorySearching ? (
         "Loading"
       ) : (
         <NewsContainer
@@ -129,6 +172,7 @@ export default function CategoriesContent() {
           nextPageId={nextPageId}
           filterParams={filterParams}
           searchQuery={queryParam}
+          categoriesParam={categoryParam}
         />
       )}
     </Content>

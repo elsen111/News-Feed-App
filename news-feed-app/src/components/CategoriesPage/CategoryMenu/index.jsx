@@ -1,35 +1,39 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { MdOutlineFilterList } from "react-icons/md";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import FilterModal from "./FilterModal";
 
+import { setCategoriesParam, fetchSelectedCategories } from "../../../redux/features/categoryMenuSlices";
+
 export default function CategoryMenu() {
-  const menuRef = useRef();
   const [modalOpen, setModalOpen] = useState(false);
+  const menuRef = useRef();
+  const dispatch = useDispatch();
 
   const categories = [
     {
       title: "politics & world",
-      code: "",
+      code: "politics,world,crime,domestic",
     },
 
     {
       title: "business & economy",
-      code: "",
+      code: "business,top",
     },
 
     {
       title: "science & technology",
-      code: "",
+      code: "science,technology",
     },
 
     {
       title: "lifestyle & culture",
-      code: "",
+      code: "lifestyle,entertainment,food,tourism",
     },
     {
       title: "health & education",
-      code: "",
+      code: "health,education",
     },
   ];
 
@@ -40,7 +44,17 @@ export default function CategoryMenu() {
     e.stopPropagation();
     setModalOpen(true);
   };
+
   const handleCloseModal = () => setModalOpen(false);
+
+  const handleSelectMenuItem = (e) => {
+    const selectedItem = e.target.textContent.toLowerCase();
+    const selectedCategories = categories.find(category => category.title === selectedItem);
+    const param = `&category=${selectedCategories.code}`;
+    
+    dispatch(setCategoriesParam(param));
+    dispatch(fetchSelectedCategories());
+  }
 
   useEffect(() => {
     const handlePosition = () => {
@@ -79,6 +93,7 @@ export default function CategoryMenu() {
         {categories.map((category) => {
           return (
             <button
+              onClick={handleSelectMenuItem}
               key={category.title[0]}
               className="text-[16px] flex-none transition-all duration-300 py-1 px-2 rounded-[5px] cursor-pointer capitalize hover:scale-110 hover:opacity-90"
             >
