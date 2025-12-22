@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -120,6 +120,11 @@ export default function NewsContainer({ newsPosts, nextPageId, filterParams = nu
 
   const filters = useSelector(state => state.filters);
   const { appliedToken } = filters;
+
+  useEffect(() => {
+    setNewsList(newsPosts);
+    setNextNewsPage(nextPageId);
+  }, [newsPosts, nextPageId])
 
   const showLoaderButton = (newsList.length != 0) && nextNewsPage;
 
