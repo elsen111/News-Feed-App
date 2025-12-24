@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import Logo from "../Logo";
 import LoginLink from "./LoginLink";
@@ -9,6 +10,7 @@ import Search from "./Search";
 export default function Header() {
   const [menuState, SetMenuState] = useState(false);
   const headerRef = useRef();
+  const { pathname } = useLocation();
 
   const openMenu = () => SetMenuState(true);
   const closeMenu = () => {
@@ -69,7 +71,7 @@ export default function Header() {
           <HeaderNav menuState={menuState} closeMenu={closeMenu} />
 
           <div className="flex items-center gap-2 sm:gap-5">
-            <Search headerRef={headerRef} />
+            {pathname !== "/saved" && <Search headerRef={headerRef} />}
             <div className="hidden sm:block">
               <LoginLink />
             </div>
