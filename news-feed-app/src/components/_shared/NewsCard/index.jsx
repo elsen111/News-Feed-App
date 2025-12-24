@@ -2,11 +2,15 @@ import { useLocation } from "react-router-dom";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { formattedDate } from "../../../utils/date";
+import { savePost, removePost } from "../../../redux/features/savedPostsSlices";
+
 import ToolTip from "./ToolTip";
 
 const NewsCard = ({
+  article_id,
   link,
   title,
   pubDate,
@@ -14,19 +18,33 @@ const NewsCard = ({
   image_url,
   source_name,
 }) => {
-  // console.log(pubDate);
   const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const savedPosts = useSelector((state) => state.savedPosts);
+
+  useEffect(() => {
+   setSaved(checkIfPostSaved(savedPosts, article_id));
+  }, [savedPosts, article_id]);
+
   const iconStyles =
     "text-white text-[22px] w-full transition-all duration-300 group-hover:scale-120";
 
   const handleSave = () => {
+    dispatch(savePost({ article_id, link, title, pubDate, category, image_url, source_name }));
     setSaved(true);
   };
 
   const handleUnsave = () => {
+    dispatch(removePost(savedPosts.find(post => post.link === link).article_id));
     setSaved(false);
   };
+
+  const checkIfPostSaved = () => {
+    return savedPosts.some(
+      (post) => post.article_id === article_id
+    );
+  }
 
   const bookMarkIcon = saved ? (
     <FaBookmark className={iconStyles} onClick={handleUnsave} />
@@ -43,7 +61,7 @@ const NewsCard = ({
         </span>
         <div className="absolute group top-0 right-0 w-10 h-10 bg-black/60 flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#75bcad]">
           {pathname == "/saved" ? (
-            <FaTrash className={iconStyles} />
+            <FaTrash className={iconStyles} onClick={handleUnsave} />
           ) : (
             bookMarkIcon
           )}
