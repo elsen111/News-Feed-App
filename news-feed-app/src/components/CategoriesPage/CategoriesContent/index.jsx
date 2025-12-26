@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import { fetchData } from "../../../api/fetchData";
+import { addParams } from "../../../redux/features/suggestionSlices";
 
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
@@ -14,6 +16,7 @@ export default function CategoriesContent() {
   const { query, searchCount } = searchQuery;
   const categoryMenu = useSelector((state) => state.categoryMenu);
   const { categoriesParam, categoryFilterCount } = categoryMenu;
+  const dispatch = useDispatch();
 
   const [newsPosts, setNewsPosts] = useState(contentNewsPosts);
   const [nextPageId, setNextPageId] = useState(nextPage);
@@ -52,6 +55,7 @@ export default function CategoriesContent() {
         console.log("Failed to load news", error);
       } finally {
         if (!cancelled) setIsFiltering(false);
+        dispatch(addParams(params));
       }
     };
 

@@ -4,6 +4,7 @@ import { IoMdSearch } from "react-icons/io";
 import { TiDelete } from "react-icons/ti";
 
 import { setSearchQuery, fetchSearchedNews } from "../../../redux/features/searchQuerySlice";
+import { addParams } from "../../../redux/features/suggestionSlices";
 
 const Delete = ({ handleResetText }) => {
   return (
@@ -19,8 +20,6 @@ export default function SearchModal({ modalState }) {
   const [searchItem, setSearchItem] = useState("");
   const inpRef = useRef();
   const dispatch = useDispatch();
-
-  const searchQuery = useSelector((state) => state.search);
 
   useEffect(() => {
     modalState && inpRef.current.focus()
@@ -38,11 +37,13 @@ export default function SearchModal({ modalState }) {
   };
 
   const handleSubmitSearch = () => {
+    const suggestionParam = (searchItem.includes(" ")) ? `&q=${searchItem.replace(" ", "%20")}` :`&q=${searchItem}`;
     console.log(searchItem);
     if(!searchItem.trim()) return;
 
     dispatch(setSearchQuery(searchItem));
     dispatch(fetchSearchedNews())
+    dispatch(addParams(suggestionParam));    
   }
 
   const handleKeyPress = (e) => {

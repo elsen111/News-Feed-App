@@ -35,7 +35,7 @@ export default function HomeContent() {
         setNewsPosts(nextNewsPosts);
         setNextPageId(nextId);
       } catch (err) {
-        console.log("failed to  load news", err);
+        console.log("Failed to  load news", err);
       } finally {
         if (!cancelled) setSearching(false);
         console.log(query.replaceAll(" ", "%20"));

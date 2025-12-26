@@ -5,6 +5,7 @@ import { MdOutlineFilterListOff } from "react-icons/md";
 import FilterModal from "./FilterModal";
 
 import { setCategoriesParam, fetchSelectedCategories } from "../../../redux/features/categoryMenuSlices";
+import { addParams } from "../../../redux/features/suggestionSlices";
 
 export default function CategoryMenu() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,6 +55,7 @@ export default function CategoryMenu() {
     
     dispatch(setCategoriesParam(param));
     dispatch(fetchSelectedCategories());
+    dispatch(addParams(param));
   }
 
   useEffect(() => {

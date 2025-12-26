@@ -6,6 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { formattedDate } from "../../../utils/date";
 import { savePost, removePost } from "../../../redux/features/savedPostsSlices";
+import { addParams, removeParams} from "../../../redux/features/suggestionSlices";
+
+import { countries } from "../../../api/countries";
+import { languages } from "../../../api/languages";
 
 import ToolTip from "./ToolTip";
 
@@ -17,6 +21,8 @@ const NewsCard = ({
   category,
   image_url,
   source_name,
+  language,
+  country
 }) => {
   const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
@@ -31,12 +37,17 @@ const NewsCard = ({
     "text-white text-[22px] w-full transition-all duration-300 group-hover:scale-120";
 
   const handleSave = () => {
+    const params = getPostParams();
     dispatch(savePost({ article_id, link, title, pubDate, category, image_url, source_name }));
+    dispatch(addParams(params));
+    // const countryCode = countries.find(c => country[0].toUpperCase() === c.name).code
+    // console.log(countryCode);
     setSaved(true);
   };
 
   const handleUnsave = () => {
     dispatch(removePost(savedPosts.find(post => post.link === link).article_id));
+    dispatch(removeParams(params));
     setSaved(false);
   };
 
@@ -44,6 +55,13 @@ const NewsCard = ({
     return savedPosts.some(
       (post) => post.article_id === article_id
     );
+  }
+
+  const getPostParams = () => {
+    const countryCode = countries.find(c => country[0].toUpperCase() === c.name).code;
+    const languageCode = languages.find(l => language === l.name.toLowerCase()).code;
+
+    return `&category=${category[0]}&country=${countryCode}&language=${languageCode}`
   }
 
   const bookMarkIcon = saved ? (

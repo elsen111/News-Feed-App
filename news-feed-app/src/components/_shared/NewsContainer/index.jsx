@@ -9,7 +9,7 @@ import LoaderButton from "../Buttons/LoaderButton";
 import LinkButton from "../Buttons/LinkButton";
 
 
-export default function NewsContainer({ newsPosts, nextPageId, filterParams = null, searchQuery = null, categoriesParam = null }) {
+export default function NewsContainer({ newsPosts, nextPageId, filterParams = null, searchQuery = null, categoriesParam = null, suggestionParam = null }) {
   const { pathname } = useLocation();
   const [newsList, setNewsList] = useState(newsPosts);
   const [nextNewsPage, setNextNewsPage] = useState(nextPageId);
@@ -78,6 +78,9 @@ export default function NewsContainer({ newsPosts, nextPageId, filterParams = nu
         fetchPromise = fetchData(`&size=8${params}`);
       } else if(categoriesParam) {
         const params = `&page=${nextNewsPage}${categoriesParam}`;
+        fetchPromise = fetchData(`&size=8${params}`);
+      } else if(suggestionParam) {
+        const params = `&page=${nextNewsPage}${suggestionParam}`;
         fetchPromise = fetchData(`&size=8${params}`);
       } else {
         fetchPromise = fetchData(`&size=8&page=${nextNewsPage}`);
