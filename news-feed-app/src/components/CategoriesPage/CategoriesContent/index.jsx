@@ -7,6 +7,7 @@ import { addParams } from "../../../redux/features/suggestionSlices";
 
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
+import SkeletonUI from "../../_shared/Skeleton";
 
 export default function CategoriesContent() {
   const { contentNewsPosts, nextPage } = useLoaderData();
@@ -41,7 +42,7 @@ export default function CategoriesContent() {
       setIsFiltering(true);
       try {
         // const filterParams = normalizedFilterParams();
-        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         const fetchPromise = fetchData(`&size=8${params}`);
 
         // console.log(filterPayload);
@@ -87,7 +88,7 @@ export default function CategoriesContent() {
       setSearching(true);
 
       try {
-        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         // let queryParam = query.includes(" ")
         //   ? query.replaceAll(" ", "%20")
         //   : query;
@@ -127,7 +128,7 @@ export default function CategoriesContent() {
     const fetchSelectedCategories = async () => {
       setCategorySearching(true);
       try {
-        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         const fetchPromise = fetchData(`&size=8${param}`);
 
         const [response] = await Promise.all([fetchPromise, delay]);
@@ -169,7 +170,7 @@ export default function CategoriesContent() {
   return (
     <Content>
       {isFiltering || searching || categorySearching ? (
-        "Loading"
+        <SkeletonUI />
       ) : (
         <NewsContainer
           newsPosts={newsPosts}

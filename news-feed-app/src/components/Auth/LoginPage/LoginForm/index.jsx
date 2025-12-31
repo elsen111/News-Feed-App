@@ -201,7 +201,7 @@ export default function LoginContent() {
           {submitting ? (
             <div className="mx-auto border-3 border-primary-2 border-t-primary-2/40 rounded-full bg-transparent animate-spin h-[19px] w-[19px]"></div>
           ) : (
-            "Sign up"
+            "Sign in"
           )}
         </button>
       </form>

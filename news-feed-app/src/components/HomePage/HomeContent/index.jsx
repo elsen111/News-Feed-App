@@ -1,10 +1,11 @@
 import { useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchData } from "../../../api/fetchData";
+import { useEffect, useState } from "react";
 
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
-import { useEffect, useState } from "react";
+import SkeletonUI from "../../_shared/Skeleton";
 
 export default function HomeContent() {
   const { contentNewsPosts, nextPage } = useLoaderData();
@@ -24,7 +25,7 @@ export default function HomeContent() {
       setSearching(true);
 
       try {
-        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         let queryParam = query.includes(" ") ? query.replaceAll(" ", "%20") : query;
 
         const fecthPromise = fetchData(`&size=8&q=${queryParam}`);
@@ -55,7 +56,7 @@ export default function HomeContent() {
   return (
     <Content>
       {searching ? (
-        "Loading"
+        <SkeletonUI />
       ) : (
         <NewsContainer
           newsPosts={newsPosts}

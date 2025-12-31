@@ -5,6 +5,8 @@ import NewsContainer from "../../_shared/NewsContainer";
 import { useEffect, useState } from "react";
 import { fetchData } from "../../../api/fetchData";
 
+import SkeletonUI from "../../_shared/Skeleton";
+
 export default function SuggestionContent() {
   const [newsPosts, setNewsPosts] = useState([]);
   const [nextPageId, setNextPageId] = useState(null);
@@ -64,7 +66,7 @@ export default function SuggestionContent() {
       setSearching(true);
 
       try {
-        const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+        const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         let queryParam = query.includes(" ")
           ? query.replaceAll(" ", "%20")
           : query;
@@ -96,7 +98,7 @@ export default function SuggestionContent() {
   return (
     <Content>
       {searching ? (
-        "Loading..."
+        <SkeletonUI />
       ) : (
         <NewsContainer
           newsPosts={newsPosts}

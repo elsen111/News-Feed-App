@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
-import { useState, useEffect } from "react";
+import SkeletonUI from "../../_shared/Skeleton";
 
 export default function SavedsContent() {
   const [loading, setLoading] = useState(false);
@@ -20,7 +21,7 @@ export default function SavedsContent() {
   return (
     <Content>
       {loading ? (
-        <p> Loading...</p>
+        <SkeletonUI />
       ) : (
         <NewsContainer newsPosts={savedPosts} nextPageId={null} />
       )}
