@@ -1,15 +1,21 @@
 import { BASE_API_LINK } from "./api.config";
+import { httpError } from "./httpErrors";
 
 export const fetchData = async(urlParams) => {
     try {
         const response = await fetch(`${BASE_API_LINK}${urlParams}`);
     console.log(`${BASE_API_LINK}${urlParams}`);
         if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+            throw httpError(response.status);
         }
         const data = await response.json();
+
+        if(data.status === 'error') {
+            throw new Error(data.message || "API returned an error!");
+        }
+
         return data;
     } catch (error) {
-        throw new Error("Something went wrong");
+        throw new Error(error.message || "Something went wrong");
     }
 }

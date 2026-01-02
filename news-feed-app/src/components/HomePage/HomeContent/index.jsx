@@ -8,13 +8,14 @@ import NewsContainer from "../../_shared/NewsContainer";
 import SkeletonUI from "../../_shared/Skeleton";
 
 export default function HomeContent() {
-  const { contentNewsPosts, nextPage } = useLoaderData();
+  const { contentNewsPosts, nextPage, error } = useLoaderData();
   const searchQuery = useSelector((state) => state.search);
   const { query, searchCount } = searchQuery;
 
   const [newsPosts, setNewsPosts] = useState(contentNewsPosts);
   const [nextPageId, setNextPageId] = useState(nextPage);
   const [searching, setSearching] = useState(false);
+  const [err, setErr] = useState(error);
 
   useEffect(() => {
     if (!searchCount) return;
@@ -22,6 +23,7 @@ export default function HomeContent() {
     let cancelled = false;
 
     const fetchSearched = async () => {
+      setErr("");
       setSearching(true);
 
       try {
@@ -36,7 +38,8 @@ export default function HomeContent() {
         setNewsPosts(nextNewsPosts);
         setNextPageId(nextId);
       } catch (err) {
-        console.log("Failed to  load news", err);
+        if(cancelled) return;
+        setErr(`Failed to  load news ${err}`);
       } finally {
         if (!cancelled) setSearching(false);
         console.log(query.replaceAll(" ", "%20"));
@@ -62,6 +65,7 @@ export default function HomeContent() {
           newsPosts={newsPosts}
           nextPageId={nextPageId}
           searchQuery={query}
+          error={err}
         />
       )}
     </Content>

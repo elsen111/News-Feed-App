@@ -12,6 +12,7 @@ export default function SuggestionContent() {
   const [nextPageId, setNextPageId] = useState(null);
   const [searching, setSearching] = useState(false);
   const [randParam, setRandParam] = useState("");
+  const [error, setError] = useState("");
 
   const suggestionParams = useSelector((state) => state.suggestionParams);
   const searchQuery = useSelector((state) => state.search);
@@ -21,6 +22,7 @@ export default function SuggestionContent() {
     let cancelled = false;
 
     const fetchSuggestedPosts = async () => {
+      setError("");
       try {
         console.log("Suggestion params: " + suggestionParams);
         if (!suggestionParams.length) return;
@@ -47,6 +49,8 @@ export default function SuggestionContent() {
         setNextPageId(nextPage);
       } catch (err) {
         console.log("Failed to load news ", err);
+        if(cancelled) return;
+        setError(`Failed to  load news. ${error}`);
       }
     };
 
@@ -105,6 +109,7 @@ export default function SuggestionContent() {
           nextPageId={nextPageId}
           suggestionParam={randParam}
           searchQuery={query}
+          error={error}
         />
       )}
     </Content>

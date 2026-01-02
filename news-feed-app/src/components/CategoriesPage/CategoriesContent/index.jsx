@@ -10,7 +10,7 @@ import NewsContainer from "../../_shared/NewsContainer";
 import SkeletonUI from "../../_shared/Skeleton";
 
 export default function CategoriesContent() {
-  const { contentNewsPosts, nextPage } = useLoaderData();
+  const { contentNewsPosts, nextPage, error } = useLoaderData();
   const filters = useSelector((state) => state.filters);
   const { appliedToken, ...filterPayload } = filters;
   const searchQuery = useSelector((state) => state.search);
@@ -27,6 +27,7 @@ export default function CategoriesContent() {
   const [filterParams, setFilterParams] = useState();
   const [queryParam, setQueryParam] = useState();
   const [categoryParam, setCategoryParam] = useState();
+  const [err, setErr] = useState(error);
 
   useEffect(() => {    
     if (!filters.appliedToken) return;
@@ -40,6 +41,7 @@ export default function CategoriesContent() {
 
     const fetchFilteredNews = async () => {
       setIsFiltering(true);
+      setErr("");
       try {
         // const filterParams = normalizedFilterParams();
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
@@ -86,6 +88,7 @@ export default function CategoriesContent() {
 
     const fetchSearched = async () => {
       setSearching(true);
+      setErr("");
 
       try {
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
@@ -102,6 +105,8 @@ export default function CategoriesContent() {
         setNextPageId(nextId);
       } catch (err) {
         console.log("failed to load news", err);
+        if(cancelled) return;
+        setErr(`Failed to  load news ${err}`);
       } finally {
         if (!cancelled) setSearching(false);
         console.log(query.replaceAll(" ", "%20"));
@@ -127,6 +132,7 @@ export default function CategoriesContent() {
 
     const fetchSelectedCategories = async () => {
       setCategorySearching(true);
+      setErr("");
       try {
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         const fetchPromise = fetchData(`&size=8${param}`);
@@ -138,7 +144,9 @@ export default function CategoriesContent() {
         setNewsPosts(nextNewsPosts);
         setNextPageId(nextId);
       } catch (error) {
-        console.log("Failed to load news", error);
+        if(cancelled) return;
+        // console.log("Failed to load news", error);
+        setErr(`Failed to  load news ${error}`);
       } finally {
         if (!cancelled) setCategorySearching(false);
       }
@@ -178,6 +186,7 @@ export default function CategoriesContent() {
           filterParams={filterParams}
           searchQuery={queryParam}
           categoriesParam={categoryParam}
+          error={err}
         />
       )}
     </Content>
