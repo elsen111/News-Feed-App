@@ -29,7 +29,7 @@ export default function CategoriesContent() {
   const [categoryParam, setCategoryParam] = useState();
   const [err, setErr] = useState(error);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!filters.appliedToken) return;
 
     const params = normalizedFilterParams();
@@ -50,8 +50,27 @@ export default function CategoriesContent() {
         // console.log(filterPayload);
         const [response] = await Promise.all([fetchPromise, delay]);
 
-        const nextNewsPosts = response.results ?? [];
+        let nextNewsPosts = response.results ?? [];
         const nextId = response.nextPage ?? null;
+
+        console.log(filters.sort);
+
+        if (filters.sort === "sort by source priority") {
+          console.log('Sorting according to source priority: ');
+          console.log('Before: ');
+          console.log(nextNewsPosts);
+
+          nextNewsPosts = [...nextNewsPosts].sort((prev, next) => {
+            const pp = prev.source_priority ?? Number.MAX_SAFE_INTEGER;
+            const np = next.source_priority ?? Number.MAX_SAFE_INTEGER;
+
+            return pp - np;
+          });
+
+          console.log('After: ');
+          console.log(nextNewsPosts);
+        }
+
         setNewsPosts(nextNewsPosts);
         setNextPageId(nextId);
       } catch (error) {
@@ -71,18 +90,15 @@ export default function CategoriesContent() {
   }, [filters.appliedToken]);
 
   useEffect(() => {
-    
     // console.log("filter Param: " + filterParams);
-    
+
     if (!searchCount) return;
 
-    const param = query.includes(" ")
-          ? query.replaceAll(" ", "%20")
-          : query;
+    const param = query.includes(" ") ? query.replaceAll(" ", "%20") : query;
 
-    setQueryParam(param)
+    setQueryParam(param);
     setFilterParams(null);
-    setCategoryParam(null)
+    setCategoryParam(null);
 
     let cancelled = false;
 
@@ -105,7 +121,7 @@ export default function CategoriesContent() {
         setNextPageId(nextId);
       } catch (err) {
         console.log("failed to load news", err);
-        if(cancelled) return;
+        if (cancelled) return;
         setErr(`Failed to  load news ${err}`);
       } finally {
         if (!cancelled) setSearching(false);
@@ -120,7 +136,7 @@ export default function CategoriesContent() {
     };
   }, [searchCount]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!categoryFilterCount) return;
 
     const param = categoriesParam;
@@ -144,7 +160,7 @@ export default function CategoriesContent() {
         setNewsPosts(nextNewsPosts);
         setNextPageId(nextId);
       } catch (error) {
-        if(cancelled) return;
+        if (cancelled) return;
         // console.log("Failed to load news", error);
         setErr(`Failed to  load news ${error}`);
       } finally {
@@ -184,6 +200,7 @@ export default function CategoriesContent() {
           newsPosts={newsPosts}
           nextPageId={nextPageId}
           filterParams={filterParams}
+          filterSortOption={filters.sort}
           searchQuery={queryParam}
           categoriesParam={categoryParam}
           error={err}

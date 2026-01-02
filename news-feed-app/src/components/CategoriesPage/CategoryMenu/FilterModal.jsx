@@ -70,6 +70,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     "last month",
     "last year",
   ];
+  
   const sortFilterList = ["sort by date (default)", "sort by source priority"];
 
   const modalRef = useRef();

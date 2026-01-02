@@ -12,6 +12,7 @@ export default function NewsContainer({
   newsPosts,
   nextPageId,
   filterParams = null,
+  filterSortOption,
   searchQuery = null,
   categoriesParam = null,
   suggestionParam = null,
@@ -104,8 +105,26 @@ export default function NewsContainer({
 
       const [response] = await Promise.all([fetchPromise, delay]);
 
-      const nextNewsPosts = response.results ?? [];
+      let nextNewsPosts = response.results ?? [];
       const nextId = response.nextPage ?? null;
+
+      
+        if (filterParams && filters.sort === "sort by source priority") {
+          console.log('Sorting according to source priority: ');
+          console.log('Before: ');
+          console.log(nextNewsPosts);
+
+          nextNewsPosts = [...nextNewsPosts].sort((prev, next) => {
+            const pp = prev.source_priority ?? Number.MAX_SAFE_INTEGER;
+            const np = next.source_priority ?? Number.MAX_SAFE_INTEGER;
+
+            return pp - np;
+          });
+
+          console.log('After: ');
+          console.log(nextNewsPosts);
+        }
+
       setNewsList((prevNewsList) => [...prevNewsList, ...nextNewsPosts]);
       setNextNewsPage(nextId);
     } catch (error) {
