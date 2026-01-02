@@ -11,6 +11,8 @@ import { addParams, removeParams} from "../../../redux/features/suggestionSlices
 import { countries } from "../../../api/countries";
 import { languages } from "../../../api/languages";
 
+import newsImg from '../../../assets/images/news.jpg'
+
 import ToolTip from "./ToolTip";
 
 const NewsCard = ({
@@ -64,6 +66,11 @@ const NewsCard = ({
     return `&category=${category[0]}&country=${countryCode}&language=${languageCode}`
   }
 
+  const handleImageError = (e) => {
+    e.target.onerror = null;
+    e.target.src = newsImg;
+  }
+
   const bookMarkIcon = saved ? (
     <FaBookmark className={iconStyles} onClick={handleUnsave} />
   ) : (
@@ -73,7 +80,7 @@ const NewsCard = ({
   return (
     <div className="rounded-t-[10px] overflow-hidden shadow-md transition duration-300 hover:-translate-y-2.5 hover:shadow-2xl">
       <div className="relative w-full h-auto sm:h-[380px] md:h-[200px]">
-        <img src={image_url} className="h-full w-full" />
+        <img src={image_url || newsImg} onError={handleImageError} className="h-full w-full" />
         <span className="py-1.5 px-2.5 bg-[#147d83] uppercase text-white absolute bottom-0 rounded-tr-[10px] text-[12px] font-bold tracking-[0.5px]">
           {category[0]}
         </span>

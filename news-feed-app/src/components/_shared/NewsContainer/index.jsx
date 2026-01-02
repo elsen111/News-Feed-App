@@ -122,7 +122,9 @@ export default function NewsContainer({
   return (
     <section className="flex flex-col justify-center items-center gap-5 sm:gap-[35px]">
       {displayedNews.length == 0 && (
-        <p className="text-gray-500 text-base text-center text-[18px]"> No news here </p>
+        <p className="text-gray-500 text-base text-center text-[18px]"> 
+        {pathname === "/saved" ? "No saved posts." : "No news found."}  
+        </p>
       )}
       <section className="grid grid-cols-1 gap-y-[30px] gap-x-5 sm:gap-y-[50px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {displayedNews.map((news) => (
