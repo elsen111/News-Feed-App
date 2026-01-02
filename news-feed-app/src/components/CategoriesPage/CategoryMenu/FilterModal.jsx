@@ -116,6 +116,10 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     setActiveControl(filterType);
   };
 
+  const handleToggle = (filterType) => {
+    setActiveControl(prev => (prev === filterType) ? null : filterType);
+  }
+
   const handleSelect = (filterType, selectedValue) => {
     dispatch(setFilterOptions({ filterType, value: selectedValue }))
 
@@ -139,6 +143,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         onClose={handleClose}
         onOpen={handleOpen}
         onSelect={handleSelect}
+        onToggle={handleToggle}
         optionList={categoryFilterList}
         submitOption={() => setFilterOptions}
         filterType="category"
@@ -148,6 +153,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         onClose={handleClose}
         onOpen={handleOpen}
         onSelect={handleSelect}
+        onToggle={handleToggle}
         optionList={timeFilterList}
         filterType="time"
         isOpen={activeControl === "time"}
@@ -156,6 +162,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         onClose={handleClose}
         onOpen={handleOpen}
         onSelect={handleSelect}
+        onToggle={handleToggle}
         optionList={sortFilterList}
         filterType="sort"
         isOpen={activeControl === "sort"}

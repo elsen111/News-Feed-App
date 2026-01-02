@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-export default function DropDown({ optionList, filterType, isOpen, onOpen, onClose, onSelect }) { 
+export default function DropDown({
+  optionList,
+  filterType,
+  isOpen,
+  onOpen,
+  onClose,
+  onSelect,
+  onToggle,
+}) {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectOption = (e) => {
@@ -13,11 +21,16 @@ export default function DropDown({ optionList, filterType, isOpen, onOpen, onClo
     onClose();
   };
 
+  const handleClick = (e) => {
+    // e.stopPropagation();
+    onToggle(filterType);
+  };
+
   return (
     <div className="bg-primary-2 w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-emerald-50 hover:border-blue-100 border-2 border-primary-1 rounded-md text-[16px]">
       <div
         className="w-full flex justify-between items-center group relative cursor-pointer"
-        onClick={() => onOpen(filterType)}
+        onClick={handleClick}
       >
         {selectedOption ? (
           <span className="capitalize">{selectedOption}</span>
