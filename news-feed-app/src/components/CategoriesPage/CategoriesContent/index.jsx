@@ -30,9 +30,11 @@ export default function CategoriesContent() {
   const [err, setErr] = useState(error);
 
   useEffect(() => {
-    if (!filters.appliedToken) return;
+    let params = normalizedFilterParams();
+    if (!filters.appliedToken) {
+      params = '';
+    };
 
-    const params = normalizedFilterParams();
     setFilterParams(params);
     setQueryParam(null);
     setCategoryParam(null);
