@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Input({ optionList, filterType, isOpen, onOpen, onClose, onSelect }) {
+export default function Input({ optionList, filterType, isOpen, onOpen, onClose, onSelect, reset, setReset }) {
   const [value, setValue] = useState("");
   const [filteredOptions, setFilteredOptions] = useState([]);
+
+  useEffect(() => {
+    if(reset) setValue("");
+    setReset(false);
+  }, [reset])
 
   const handleChange = (e) => {
     const newValue = e.target.value;

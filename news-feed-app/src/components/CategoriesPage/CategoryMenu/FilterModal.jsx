@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterOptions, fetchFilteredNews } from "../../../redux/features/filterSlice";
+import { setFilterOptions, fetchFilteredNews, resetFilters } from "../../../redux/features/filterSlice";
 import DropDown from "./DropDown";
 import Input from "./Input";
 import { countries } from "../../../api/countries";
@@ -19,6 +19,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
   // };
 
   const [activeControl, setActiveControl] = useState(null);
+  const [reset, setReset] = useState(false);
   // const [filterOptions, setFilterOptions] = useState(defaultFilterOptions);
 
   const categoryFilterList = [
@@ -62,15 +63,15 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     },
   ];
 
-  const timeFilterList = [
-    "all time",
-    "last hour",
-    "last day",
-    "last week",
-    "last month",
-    "last year",
-  ];
-  
+  // const timeFilterList = [
+  //   "all time",
+  //   "last hour",
+  //   "last day",
+  //   "last week",
+  //   "last month",
+  //   "last year",
+  // ];
+
   const sortFilterList = ["sort by date (default)", "sort by source priority"];
 
   const modalRef = useRef();
@@ -132,6 +133,11 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     dispatch(fetchFilteredNews());
   };
 
+  const handleResetFilter = () => {
+    dispatch(resetFilters());
+    setReset(true);
+  }
+
   return (
     <aside
       ref={modalRef}
@@ -149,8 +155,10 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         submitOption={() => setFilterOptions}
         filterType="category"
         isOpen={activeControl === "category"}
+        reset={reset}
+        setReset={setReset}
       />
-      <DropDown
+      {/* <DropDown
         onClose={handleClose}
         onOpen={handleOpen}
         onSelect={handleSelect}
@@ -158,7 +166,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         optionList={timeFilterList}
         filterType="time"
         isOpen={activeControl === "time"}
-      />
+      /> */}
       <DropDown
         onClose={handleClose}
         onOpen={handleOpen}
@@ -167,6 +175,8 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         optionList={sortFilterList}
         filterType="sort"
         isOpen={activeControl === "sort"}
+        reset={reset}
+        setReset={setReset}
       />
       <Input
         onClose={handleClose}
@@ -175,6 +185,8 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         filterType="country"
         optionList={countries}
         isOpen={activeControl === "country"}
+        reset={reset}
+        setReset={setReset}
       />
       <Input
         filterType="language"
@@ -183,7 +195,17 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
         onSelect={handleSelect}
         optionList={languages}
         isOpen={activeControl === "language"}
+        reset={reset}
+        setReset={setReset}
       />
+
+      <button
+        onClick={handleResetFilter}
+        className="w-full text-[#111827] bg-[#F9FAFB] px-[15px] py-1 cursor-pointer rounded-md text-[16px] transition-all duration-300 hover:opacity-70 active:scale-95"
+      >
+        Reset filter
+      </button>
+
       <button
         onClick={handleSubmitFilter}
         className="w-full text-white bg-blue-950 px-[15px] py-1 cursor-pointer rounded-md text-[16px] transition-all duration-300 hover:opacity-70 active:scale-95"
