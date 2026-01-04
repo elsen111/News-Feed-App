@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { fetchData } from "../../../api/fetchData";
 
 import NewsCard from "../NewsCard";
 import LoaderButton from "../Buttons/LoaderButton";
 import LinkButton from "../Buttons/LinkButton";
+
+import { setRenderedPostsCount } from "../../../redux/features/savedPostsSlices";
 
 export default function NewsContainer({
   newsPosts,
@@ -25,9 +28,11 @@ export default function NewsContainer({
   const [showLoaderButton, setShowLoaderButton] = useState(false);
   const [renderedSavedPosts, setRenderedSavedPosts] = useState([]);
 
+  const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
   const { appliedToken } = filters;
 
+  const count = useSelector(state => state.savedPosts.renderedPostsCount);
   const SAVED_PAGE_CHUNK = 12;
 
   useEffect(() => {
@@ -35,7 +40,9 @@ export default function NewsContainer({
     setNextNewsPage(nextPageId);
 
     if (pathname === "/saved") {
-      setRenderedSavedPosts((newsPosts ?? []).slice(0, SAVED_PAGE_CHUNK));
+      console.log(newsPosts)
+      setRenderedSavedPosts((newsPosts ?? []).slice(0, count));
+      dispatch(setRenderedPostsCount(SAVED_PAGE_CHUNK));
     } else {
       setRenderedSavedPosts(newsPosts);
     }
@@ -68,6 +75,7 @@ export default function NewsContainer({
           renderedPostsCount + SAVED_PAGE_CHUNK
         );
         setRenderedSavedPosts((prev) => [...prev, ...morePosts]);
+        dispatch(setRenderedPostsCount(renderedPostsCount + SAVED_PAGE_CHUNK))
       } catch (error) {
         console.log("Failed to load more saved posts", error);
       } finally {

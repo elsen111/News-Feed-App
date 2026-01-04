@@ -1,38 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const defaulState = localStorage.getItem('savedPosts') ?
+const savedPosts = localStorage.getItem('savedPosts') ?
     JSON.parse(localStorage.getItem('savedPosts')) : [];
+
+const defaultState = {
+    posts: savedPosts,
+    renderedPostsCount: 12
+}
 
 
 const savedPostsSlices = createSlice({
     name: "savedPosts",
-    initialState: defaulState,
+    initialState: defaultState,
     reducers: {
-        returnSavedPosts: () => {
-            return state;
-        },
-
         savePost: (state, action) => {
-            const postExists = state.find(post => post.article_id === action.payload.article_id);
+            const postExists = state.posts.find(post => post.article_id === action.payload.article_id);
             if (!postExists) {
-                state.unshift(action.payload);
+                state.posts.unshift(action.payload);
             }
-            localStorage.setItem('savedPosts', JSON.stringify(state));
+            localStorage.setItem('savedPosts', JSON.stringify(state.posts));
         },
 
         removePost: (state, action) => {
-            const newState = state.filter(post => post.article_id !== action.payload);
-            localStorage.setItem('savedPosts', JSON.stringify(newState));
-            console.log(newState);
-            return newState;
+            const updatedPosts = state.posts.filter(post => post.article_id !== action.payload);
+            state.posts = updatedPosts;
+            localStorage.setItem('savedPosts', JSON.stringify(updatedPosts));
+            console.log(updatedPosts);
         },
 
-        clearSavedPosts: () => {
+        setRenderedPostsCount: (state, action) => {
+            state.renderedPostsCount = action.payload;
+        },
+
+        clearSavedPosts: (state) => {
+            state.posts = [];
             localStorage.removeItem('savedPosts');
-            return [];
         }
     }
 })
 
-export const { savePost, removePost, clearSavedPosts } = savedPostsSlices.actions;
+export const { savePost, removePost, clearSavedPosts, setRenderedPostsCount } = savedPostsSlices.actions;
 export default savedPostsSlices.reducer;

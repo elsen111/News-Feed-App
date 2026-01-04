@@ -29,7 +29,7 @@ const NewsCard = ({
   const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const savedPosts = useSelector((state) => state.savedPosts);
+  const savedPosts = useSelector((state) => state.savedPosts.posts);
 
   useEffect(() => {
    setSaved(checkIfPostSaved(savedPosts, article_id));
@@ -48,8 +48,10 @@ const NewsCard = ({
   };
 
   const handleUnsave = () => {
+    console.log(title)
+    // const params = getPostParams();
     dispatch(removePost(savedPosts.find(post => post.link === link).article_id));
-    dispatch(removeParams(params));
+    dispatch(removeParams(article_id));
     setSaved(false);
   };
 
