@@ -24,15 +24,15 @@ export default function SuggestionContent() {
     const fetchSuggestedPosts = async () => {
       setError("");
       try {
-        console.log("Suggestion params: " + suggestionParams);
+        // console.log("Suggestion params: " + suggestionParams);
         if (!suggestionParams.length) return;
 
         const param =
           suggestionParams[Math.floor(Math.random() * suggestionParams.length)];
 
         setRandParam(param);
-        console.log("Randomly selected param: " + param);
-        console.log("Link endpoint: " + `&size=8${param}`);
+        // console.log("Randomly selected param: " + param);
+        // console.log("Link endpoint: " + `&size=8${param}`);
 
         let response = await fetchData(`&size=8${param}`);
 
@@ -43,6 +43,7 @@ export default function SuggestionContent() {
         const posts = response.results ?? [];
         const nextPage = response.nextPage ?? null;
 
+        console.log('actual posts');
         console.log(posts);
 
         setNewsPosts(posts);
