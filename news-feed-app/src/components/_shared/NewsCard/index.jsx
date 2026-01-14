@@ -38,18 +38,17 @@ const NewsCard = ({
   const iconStyles =
     "text-white text-[22px] w-full transition-all duration-300 group-hover:scale-120";
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.stopPropagation();
     const params = getPostParams();
     dispatch(savePost({ article_id, link, title, pubDate, category, image_url, source_name }));
     dispatch(addParams(params));
-    // const countryCode = countries.find(c => country[0].toUpperCase() === c.name).code
-    // console.log(countryCode);
     setSaved(true);
   };
 
-  const handleUnsave = () => {
+  const handleUnsave = (e) => {
+    e.stopPropagation();
     console.log(title)
-    // const params = getPostParams();
     dispatch(removePost(savedPosts.find(post => post.link === link).article_id));
     dispatch(removeParams(article_id));
     setSaved(false);

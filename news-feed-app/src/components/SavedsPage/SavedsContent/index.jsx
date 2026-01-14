@@ -6,12 +6,10 @@ import NewsContainer from "../../_shared/NewsContainer";
 import SkeletonUI from "../../_shared/Skeleton";
 
 export default function SavedsContent() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const savedPosts = useSelector((state) => state.savedPosts.posts);
-  // console.log(savedPosts)
 
   useEffect(() => {
-    setLoading(true);
     const delay = setTimeout(() => {
       setLoading(false);
     }, 500);

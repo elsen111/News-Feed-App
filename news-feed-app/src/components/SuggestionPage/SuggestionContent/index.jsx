@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchData } from "../../../api/fetchData";
 
 import SkeletonUI from "../../_shared/Skeleton";
@@ -10,7 +10,7 @@ import SkeletonUI from "../../_shared/Skeleton";
 export default function SuggestionContent() {
   const [newsPosts, setNewsPosts] = useState([]);
   const [nextPageId, setNextPageId] = useState(null);
-  const [searching, setSearching] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [randParam, setRandParam] = useState("");
   const [error, setError] = useState("");
 
@@ -18,40 +18,53 @@ export default function SuggestionContent() {
   const searchQuery = useSelector((state) => state.search);
   const { query, searchCount } = searchQuery;
 
+  const hasFetchedRef = useRef(false);
+  const initialParamsRef = useRef(suggestionParams);
+
   useEffect(() => {
+    if (hasFetchedRef.current) return;
+
     let cancelled = false;
 
     const fetchSuggestedPosts = async () => {
       setError("");
+
       try {
-        // console.log("Suggestion params: " + suggestionParams);
-        if (!suggestionParams.length) return;
+        const params = initialParamsRef.current;
+        let response;
 
-        const param =
-          suggestionParams[Math.floor(Math.random() * suggestionParams.length)];
-
-        setRandParam(param);
-        // console.log("Randomly selected param: " + param);
-        // console.log("Link endpoint: " + `&size=8${param}`);
-
-        let response = await fetchData(`&size=8${param}`);
-
-        if(!response.results) {
+        if (!params || !params.length) {
           response = await fetchData(`&size=8`);
+        } else {
+          const param = params[Math.floor(Math.random() * params.length)];
+          setRandParam(param);
+          response = await fetchData(`&size=8${param}`);
+
+          if (!response.results) {
+            response = await fetchData(`&size=8`);
+          }
         }
 
-        const posts = response.results ?? [];
-        const nextPage = response.nextPage ?? null;
+        if (!cancelled) {
+          const posts = response.results ?? [];
+          const nextPage = response.nextPage ?? null;
 
-        console.log('actual posts');
-        console.log(posts);
+          console.log('actual posts');
+          console.log(posts);
 
-        setNewsPosts(posts);
-        setNextPageId(nextPage);
+          setNewsPosts(posts);
+          setNextPageId(nextPage);
+          hasFetchedRef.current = true;
+        }
       } catch (err) {
         console.log("Failed to load news ", err);
-        if(cancelled) return;
-        setError(`Failed to  load news. ${error}`);
+        if (!cancelled) {
+          setError(`Failed to load news. ${err}`);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
@@ -60,7 +73,7 @@ export default function SuggestionContent() {
     return () => {
       cancelled = true;
     };
-  }, [suggestionParams]);
+  }, []);
 
   useEffect(() => {
     if (!searchCount) return;
@@ -68,7 +81,7 @@ export default function SuggestionContent() {
     let cancelled = false;
 
     const fetchSearched = async () => {
-      setSearching(true);
+      setLoading(true);
 
       try {
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
@@ -79,14 +92,16 @@ export default function SuggestionContent() {
         const fecthPromise = fetchData(`&size=8&q=${queryParam}`);
         const [response] = await Promise.all([fecthPromise, delay]);
 
-        const nextNewsPosts = response.results ?? [];
-        const nextId = response.nextPage ?? null;
-        setNewsPosts(nextNewsPosts);
-        setNextPageId(nextId);
+        if (!cancelled) {
+          const nextNewsPosts = response.results ?? [];
+          const nextId = response.nextPage ?? null;
+          setNewsPosts(nextNewsPosts);
+          setNextPageId(nextId);
+        }
       } catch (err) {
         console.log("Failed to  load news", err);
       } finally {
-        if (!cancelled) setSearching(false);
+        if (!cancelled) setLoading(false);
         console.log(query.replaceAll(" ", "%20"));
       }
 
@@ -102,7 +117,7 @@ export default function SuggestionContent() {
 
   return (
     <Content>
-      {searching ? (
+      {loading ? (
         <SkeletonUI />
       ) : (
         <NewsContainer

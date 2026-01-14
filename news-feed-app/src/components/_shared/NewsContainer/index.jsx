@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -22,8 +22,8 @@ export default function NewsContainer({
   error,
 }) {
   const { pathname } = useLocation();
-  const [newsList, setNewsList] = useState(newsPosts);
-  const [nextNewsPage, setNextNewsPage] = useState(nextPageId);
+  const [newsList, setNewsList] = useState([]);
+  const [nextNewsPage, setNextNewsPage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showLoaderButton, setShowLoaderButton] = useState(false);
   const [renderedSavedPosts, setRenderedSavedPosts] = useState([]);
@@ -35,13 +35,23 @@ export default function NewsContainer({
   const count = useSelector(state => state.savedPosts.renderedPostsCount);
   const SAVED_PAGE_CHUNK = 12;
 
+  const prevNewsPostsRef = useRef();
+  const prevNextPageIdRef = useRef();
+
   useEffect(() => {
+    if (prevNewsPostsRef.current === newsPosts && prevNextPageIdRef.current === nextPageId) {
+      return;
+    }
+
+    prevNewsPostsRef.current = newsPosts;
+    prevNextPageIdRef.current = nextPageId;
+
     setNewsList(newsPosts);
     setNextNewsPage(nextPageId);
 
     if (pathname === "/saved") {
       console.log(newsPosts)
-      setRenderedSavedPosts((newsPosts ?? []).slice(0, count));
+      setRenderedSavedPosts((newsPosts ?? []).slice(0, count || SAVED_PAGE_CHUNK));
       dispatch(setRenderedPostsCount(SAVED_PAGE_CHUNK));
     } else {
       setRenderedSavedPosts(newsPosts);
@@ -148,7 +158,7 @@ export default function NewsContainer({
 
   return (
     <section className="flex flex-col justify-center items-center gap-5 sm:gap-[35px]">
-      {displayedNews.length == 0 && (
+      {displayedNews.length === 0 && (
         <p className="text-gray-500 text-base text-center text-[18px]"> 
         {pathname === "/saved" ? "No saved posts." : "No news found."}  
         </p>

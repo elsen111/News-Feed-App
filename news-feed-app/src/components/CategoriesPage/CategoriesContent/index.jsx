@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 
@@ -29,7 +29,14 @@ export default function CategoriesContent() {
   const [categoryParam, setCategoryParam] = useState();
   const [err, setErr] = useState(error);
 
+  const isFirstFilterRun = useRef(true);
+
   useEffect(() => {
+    if (isFirstFilterRun.current) {
+      isFirstFilterRun.current = false;
+      return;
+    }
+
     let params = normalizedFilterParams();
     if (!filters.appliedToken) {
       params = '';
@@ -45,11 +52,9 @@ export default function CategoriesContent() {
       setIsFiltering(true);
       setErr("");
       try {
-        // const filterParams = normalizedFilterParams();
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
         const fetchPromise = fetchData(`&size=8${params}`);
 
-        // console.log(filterPayload);
         const [response] = await Promise.all([fetchPromise, delay]);
 
         let nextNewsPosts = response.results ?? [];
@@ -92,8 +97,6 @@ export default function CategoriesContent() {
   }, [filters.appliedToken]);
 
   useEffect(() => {
-    // console.log("filter Param: " + filterParams);
-
     if (!searchCount) return;
 
     const param = query.includes(" ") ? query.replaceAll(" ", "%20") : query;
@@ -110,9 +113,6 @@ export default function CategoriesContent() {
 
       try {
         const delay = new Promise((resolve) => setTimeout(resolve, 2000));
-        // let queryParam = query.includes(" ")
-        //   ? query.replaceAll(" ", "%20")
-        //   : query;
 
         const fecthPromise = fetchData(`&size=8&q=${param}`);
         const [response] = await Promise.all([fecthPromise, delay]);
@@ -163,7 +163,6 @@ export default function CategoriesContent() {
         setNextPageId(nextId);
       } catch (error) {
         if (cancelled) return;
-        // console.log("Failed to load news", error);
         setErr(`Failed to  load news ${error}`);
       } finally {
         if (!cancelled) setCategorySearching(false);
