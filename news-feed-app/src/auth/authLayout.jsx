@@ -37,7 +37,7 @@ export default function AuthLayout() {
             scale={0.9}
             threshold={0.2}
             delay={0.3}
-            className="flex flex-col items-center w-full md:w-[48%] p-5 sm:p-7 justify-center shadow-2xl rounded-2xl bg-primary-2 h-full"
+            className="flex flex-col items-center w-full md:w-[48%] p-5 sm:p-7 justify-center shadow-2xl rounded-2xl bg-[#f7fafc] h-full"
           >
             <Outlet />
           </AnimatedForm>

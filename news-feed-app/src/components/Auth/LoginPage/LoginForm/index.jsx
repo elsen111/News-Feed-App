@@ -137,7 +137,7 @@ export default function LoginContent() {
             ref={(el) => (inputRefs.current.email = el)}
             type="email"
             name="email"
-            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-primary-1/30 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
+            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-(--border)/80 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
             id="email"
             value={userData.email ? userData.email : ""}
             onChange={handleInputChange}
@@ -147,7 +147,7 @@ export default function LoginContent() {
               inputRefs.current.email.focus();
             }}
             size={20}
-            className="absolute top-[11px] right-[15px]"
+            className="absolute top-[11px] right-[15px] text-[#423b5a]"
           />
 
           {error.email && (
@@ -160,7 +160,7 @@ export default function LoginContent() {
             ref={(el) => (inputRefs.current.password = el)}
             type={passwordVisible ? "text" : "password"}
             name="password"
-            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-primary-1/30 rounded-lg focus:border-[#62aacb] focus:shadow-2xl"
+            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-(--border)/80 rounded-lg focus:border-[#62aacb] focus:shadow-2xl"
             id="password"
             value={userData.password ? userData.password : ""}
             onChange={handleInputChange}
@@ -168,13 +168,13 @@ export default function LoginContent() {
           {passwordVisible ? (
             <IoEye
               size={21}
-              className="cursor-pointer absolute top-[11px] right-[15px]"
+              className="cursor-pointer absolute top-[11px] right-[15px] text-[#423b5a]"
               onClick={handlePasswordVisibility}
             />
           ) : (
             <IoEyeOff
               size={21}
-              className="cursor-pointer absolute top-[11px] right-[15px]"
+              className="cursor-pointer absolute top-[11px] right-[15px] text-[#423b5a]"
               onClick={handlePasswordVisibility}
             />
           )}
@@ -187,16 +187,15 @@ export default function LoginContent() {
           <Checkbox label="Keep me logged in" initialChecked={true} />
           <a
             href="#"
-            className="text-primary-1 text-sm hover:text-[#62aacb] transition-all duration-300"
+            className="text-(--form) text-sm hover:text-[#62aacb] transition-all duration-300"
           >
-            {" "}
-            Forgot password?{" "}
+            Forgot password?
           </a>
         </div>
 
         <button
           type="submit"
-          className="bg-[#246fe8] transition-all duration-300 text-primary-2 h-[33px] w-[90px] sm:h-10 sm:w-28 rounded-lg cursor-pointer hover:scale-90 hover:opacity-90"
+          className="bg-[#246fe8] transition-all duration-300 text-[#f7fafc] h-[33px] w-[90px] sm:h-10 sm:w-28 rounded-lg cursor-pointer hover:scale-90 hover:opacity-90"
         >
           {submitting ? (
             <div className="mx-auto border-3 border-primary-2 border-t-primary-2/40 rounded-full bg-transparent animate-spin h-[19px] w-[19px]"></div>

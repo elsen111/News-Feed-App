@@ -44,12 +44,12 @@ export default function Header() {
 
     return () => window.removeEventListener("scroll", handleHeight);
   }, []);
-
+ 
   return (
     <>
       <header
         ref={headerRef}
-        className={`fixed flex justify-center top-0 left-0 right-0 transition-all duration-300 bg-primary-2 border-b border-[#b4b4b4] z-20 sm:z-5
+        className={`fixed flex justify-center top-0 left-0 right-0 transition-all duration-300 bg-(--header) border-b border-(--border) z-20 sm:z-5
          ${
            menuState
              ? " after:opacity-100 after:pointer-events-auto"
@@ -61,7 +61,7 @@ export default function Header() {
           <div className="flex items-center justify-start gap-1 sm:gap-4">
             <RiMenuUnfold3Fill
               size={34}
-              className="block cursor-pointer xl:hidden text-primary-1"
+              className="block cursor-pointer xl:hidden text-(--text-primary)"
               onClick={openMenu}
             />
 

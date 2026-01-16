@@ -143,8 +143,8 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
       ref={modalRef}
       className={`${
         modalOpen ? "translate-x-0" : "-translate-x-140"
-      } bg-[#3A9E97] fixed w-full sm:w-[70%] md:w-[50%] lg:w-[32%] 
-      h-fit top-[108px] sm:top-[119px] md:top-[139px] p-5 left-0 transition-all rounded-r-[7px] duration-500 flex flex-col gap-7`}
+      } bg-(--filter-modal) fixed w-full sm:w-[70%] md:w-[50%] lg:w-[32%] 
+      h-fit top-[108px] sm:top-[119px] md:top-[139px] p-5 left-0 transition-all rounded-r-[7px] duration-500 flex flex-col gap-7 overflow-hidden`}
     >
       <DropDown
         onClose={handleClose}
@@ -208,7 +208,7 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
 
       <button
         onClick={handleSubmitFilter}
-        className="w-full text-white bg-blue-950 px-[15px] py-1 cursor-pointer rounded-md text-[16px] transition-all duration-300 hover:opacity-70 active:scale-95"
+        className="w-full text-white bg-(--filter-search) px-[15px] py-1 cursor-pointer rounded-md text-[16px] transition-all duration-300 hover:opacity-70 active:scale-95"
       >
         Search
       </button>

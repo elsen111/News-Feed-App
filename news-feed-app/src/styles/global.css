@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary-1: #555;
+    --color-primary-1: #f8fafc;
     --color-primary-2: #f8f9fa;
     --color-search-icon: #75899e;
     --color-search-modal: #e1e1e1;
@@ -12,27 +12,104 @@
 
 /* Light theme (default) */
 :root {
-    --color-primary-1: #555;
+  --main: #f8fafc;          /* page */
+  --category-menu: #f1f5f9;       /* subnavbar */
+  --filter-modal: #4c5971;       /* subnavbar */
+  --filter-search: #1d232b;
+  --header: #ecf4ea;       /* header */
+  --surface: #ffffff;     /* cards */
+  --text-primary: #0f172a;        /* primary text */
+  --text-muted: #64748b;  /* secondary text */
+  --input: #f1f5f9;   /* inputs, filters */
+  --tooltip: #033d52;     /* cards */
+  --tooltip-text: #fff;     /* cards */
+  --icon: #475569;
+  --color-search-modal: #e1e1e1;
+  --border: #cdc8c8;
+  --form: #424b5a;
+
+
+
+  /* --color-primary-1: #555; */
+
+
+
+
+
+
     --color-primary-2: #f8f9fa;
     --color-search-icon: #75899e;
-    --color-search-modal: #e1e1e1;
-    --color-category-menu: #ecfeff;
+    /* --color-category-menu: #ecfeff; */
     --color-filter-icon: #157c82;
+
+
+
+    /* Backgrounds */
+
+
+
+
+  /* Text */
+
+  /* Borders */
+
+  /* Accent */
+  --accent: #14b8a6;
+  --accent-hover: #0d9488;
+
+  /* Special */
 }
 
 /* Dark theme */
 .dark {
-    --color-primary-1: #f8f9fa;
+  --main: #0f172a;          /* page */
+  --header: rgb(12, 31, 69);       /* header */
+  --category-menu: #0b1220;       /* subnavbar */
+  --filter-modal: #0f1624;       /* subnavbar */
+  --filter-search: #4B5563;
+  --surface: #1a2744;     /* cards */
+  --text-primary: #e5e7eb;
+  --text-muted: #9ca3af;
+  --input: #1f2933;   /* inputs */
+  --tooltip: #fff;     /* cards */
+  --tooltip-text: #1f2933;     /* cards */
+  --icon: #cbd5f5;
+  --color-search-modal: #101f3f;
+  --border: #1f2937;
+  --form: #424b5a;
+
+  /* --color-primary-1: #f8f9fa; */
+
+
+
+
+
     --color-primary-2: #555;
     --color-search-icon: #e3f1ff;
-    --color-search-modal: #717274;
-    --color-category-menu: #446067;
+    /* --color-category-menu: #446067; */
     --color-filter-icon: #aef1f4;
+
+
+
+
+    /* Backgrounds */
+
+
+  /* Text */
+
+  /* Borders */
+
+  /* Accent */
+  --accent: #2dd4bf;
+  --accent-hover: #14b8a6;
+
+  /* Special */
 }
 
 body {
     font-family: "Roboto", sans-serif;
-    background-color: var(--color-primary-2);
+    /* background-color: var(--color-primary-2); */
+    background-color: var(--main);
     color: var(--color-primary-1);
     transition: all;
     transition-duration: 0.3s;

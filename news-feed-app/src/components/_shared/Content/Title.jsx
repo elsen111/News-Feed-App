@@ -27,7 +27,7 @@ const Title = () => {
   }
 
   return (
-    <h3 className='text-primary-1 uppercase font-black text-center tracking-[2px] text-[26px] md:text-[35px]'>
+    <h3 className='text-(--text-primary) uppercase font-black text-center tracking-[2px] text-[26px] md:text-[35px]'>
       {title}
     </h3>
   )

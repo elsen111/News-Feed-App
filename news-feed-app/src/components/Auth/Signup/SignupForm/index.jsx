@@ -152,7 +152,7 @@ export default function SignupContent() {
             ref={(el) => (inputRefs.current.fullname = el)}
             type="text"
             name="fullname"
-            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-primary-1/30 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
+            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-[#cdc8c7]/80 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
             id="full name"
             value={userData.fullname ? userData.fullname : ""}
             onChange={handleInputChange}
@@ -162,7 +162,7 @@ export default function SignupContent() {
               inputRefs.current.fullname.focus();
             }}
             size={20}
-            className="absolute top-[11px] right-[15px]"
+            className="absolute top-[11px] right-[15px] text-[#423b5a]"
           />
 
           {error.fullname && (
@@ -174,7 +174,7 @@ export default function SignupContent() {
             ref={(el) => (inputRefs.current.email = el)}
             type="email"
             name="email"
-            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-primary-1/30 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
+            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-[#cdc8c7]/80 rounded-lg focus:border-[#62aacb] focus:shadow-lg"
             id="email"
             value={userData.email ? userData.email : ""}
             onChange={handleInputChange}
@@ -184,7 +184,7 @@ export default function SignupContent() {
               inputRefs.current.email.focus();
             }}
             size={20}
-            className="absolute top-[11px] right-[15px]"
+            className="absolute top-[11px] right-[15px] text-[#423b5a]"
           />
 
           {error.email && (
@@ -197,7 +197,7 @@ export default function SignupContent() {
             ref={(el) => (inputRefs.current.password = el)}
             type={passwordVisible ? "text" : "password"}
             name="password"
-            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-primary-1/30 rounded-lg focus:border-[#62aacb] focus:shadow-2xl"
+            className="text-[#205167] text-[15px] w-full h-full transition-all duration-500 py-2.5 px-[15px] border-2 border-[#cdc8c7]/80 rounded-lg focus:border-[#62aacb] focus:shadow-2xl"
             id="password"
             value={userData.password ? userData.password : ""}
             onChange={handleInputChange}
@@ -205,13 +205,13 @@ export default function SignupContent() {
           {passwordVisible ? (
             <IoEye
               size={21}
-              className="cursor-pointer absolute top-[11px] right-[15px]"
+              className="cursor-pointer absolute top-[11px] right-[15px] text-[#423b5a]"
               onClick={handlePasswordVisibility}
             />
           ) : (
             <IoEyeOff
               size={21}
-              className="cursor-pointer absolute top-[11px] right-[15px]"
+              className="cursor-pointer absolute top-[11px] right-[15px] text-[#423b5a]"
               onClick={handlePasswordVisibility}
             />
           )}
@@ -233,7 +233,7 @@ export default function SignupContent() {
 
         <button
           type="submit"
-          className="bg-[#246fe8] transition-all duration-300 text-primary-2 h-[33px] w-[90px] sm:h-10 sm:w-28 rounded-lg cursor-pointer hover:scale-90 hover:opacity-90"
+          className="bg-[#246fe8] transition-all duration-300 text-[#f7fafc] h-[33px] w-[90px] sm:h-10 sm:w-28 rounded-lg cursor-pointer hover:scale-90 hover:opacity-90"
         >
           {submitting ? (
             <div className="mx-auto border-3 border-primary-2 border-t-primary-2/40 rounded-full bg-transparent animate-spin h-[19px] w-[19px]"></div>

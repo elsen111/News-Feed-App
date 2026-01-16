@@ -55,11 +55,11 @@ export default function Input({ optionList, filterType, isOpen, onOpen, onClose,
     filterType === "country" ? "Search by countries" : "Search by languages";
 
   return (
-    <div className="bg-primary-2 w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-emerald-50 hover:border-blue-100 border-2 border-primary-1 rounded-md text-[16px]">
+    <div className="bg-(--input) w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-(--input)/80 rounded-md text-[16px]">
       <input
         value={value}
         type="text"
-        className="w-full"
+        className="w-full text-(--text-primary)"
         placeholder={placeholder}
         onChange={handleChange}
         onFocus={handleFocus}
@@ -67,12 +67,12 @@ export default function Input({ optionList, filterType, isOpen, onOpen, onClose,
 
       {showList && (
         <div
-          className={`absolute max-h-[200px] overflow-y-auto h-fit z-10 w-full rounded-b-md top-8 left-0 right-5 bg-primary-2 border-2 border-primary-1 custom-scroll`}
+          className={`absolute max-h-[200px] overflow-y-auto h-fit z-10 w-full rounded-b-md top-8 left-0 right-5 bg-(--input) custom-scroll`}
         >
-          <ul className="bg-primary-2">
+          <ul className="bg-(--input)/70 max-h-[100px]">
             {filteredOptions.map((option) => {
               return (
-                <li key={Math.random()} onClick={handleSelectOption} className="transition-all duration-300 py-1 px-[15px] capitalize cursor-pointer hover:bg-gray-200">
+                <li key={Math.random()} onClick={handleSelectOption} className="transition-all duration-300 py-1 px-[15px] capitalize w-fit cursor-pointer hover:translate-x-[5px] hover:opacity-70 text-(--text-primary)">
                   {option.name}
                 </li>
               );

@@ -26,8 +26,8 @@ export default function InputContainer({ children, label }) {
       <label
         htmlFor={label}
         className={`
-         ${labelActive ? "text-[#62aacb]" : "text-primary-1"}
-          absolute -top-3 left-[17px] bg-primary-2 text-[14px] px-2 transition-all duration-300 capitalize
+         ${labelActive ? "text-[#62aacb]" : "text-(--form)"}
+          absolute -top-3 left-[17px] bg-[#f7fafc] text-[14px] px-2 transition-all duration-300 capitalize
         `}
       >
         {label}

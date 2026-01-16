@@ -77,7 +77,7 @@ export default function CategoryMenu() {
   return (
     <nav
       ref={menuRef}
-      className="sticky transition-all px-7 overflow-hidden duration-300 top-[60px] sm:top-[70px] md:top-[90px] w-full py-2 mb-3 z-1 shadow-2xl bg-(--color-category-menu)"
+      className="sticky transition-all px-7 overflow-hidden duration-300 top-[60px] sm:top-[70px] md:top-[90px] w-full py-2 border-b border-(--border) mb-3 z-1 shadow-2xl bg-(--category-menu)"
     >
       <div className="gap-10 flex justify-around items-center w-full h-full scroll-hidden overflow-auto lg:overflow-hidden">
         {modalOpen ? (
@@ -97,7 +97,7 @@ export default function CategoryMenu() {
             <button
               onClick={handleSelectMenuItem}
               key={category.title[0]}
-              className="text-[16px] flex-none transition-all duration-300 py-1 px-2 rounded-[5px] cursor-pointer capitalize hover:scale-110 hover:opacity-90"
+              className="text-[16px] flex-none transition-all duration-300 text-(--text-primary) py-1 px-2 rounded-[5px] cursor-pointer capitalize hover:scale-110 hover:opacity-90"
             >
               {category.title}
             </button>

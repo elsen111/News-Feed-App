@@ -36,9 +36,9 @@ export default function DropDown({
   }, [reset])
 
   return (
-    <div className="bg-primary-2 w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-emerald-50 hover:border-blue-100 border-2 border-primary-1 rounded-md text-[16px]">
+    <div className="bg-(--input) w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-(--input)/80 hover:border-blue-100 rounded-md text-[16px]">
       <div
-        className="w-full flex justify-between items-center group relative cursor-pointer"
+        className="w-full flex justify-between items-center group relative cursor-pointer text-(--text-primary)"
         onClick={handleClick}
       >
         {selectedOption ? (
@@ -59,9 +59,9 @@ export default function DropDown({
 
       {isOpen && (
         <div
-          className={`absolute max-h-[200px] overflow-y-auto w-full rounded-b-md top-8 left-0 right-5 z-10 bg-primary-2 border-2 border-primary-1 custom-scroll`}
+          className={`absolute max-h-[200px] overflow-y-auto w-full rounded-b-md top-8 left-0 right-5 z-10 bg-(--input) custom-scroll`}
         >
-          <ul className="bg-primary-2">
+          <ul className="bg-(--input) text-(--text-primary)">
             {filterType === "category" ? (
               optionList.map((category) => {
                 return !category.categoryHeader ? (
@@ -74,7 +74,7 @@ export default function DropDown({
                   </li>
                 ) : (
                   <li key={category.categoryOptions[0]}>
-                    <p className="bg-gray-300 px-[15px] py-1 font-bold pointer-events-none!">
+                    <p className="bg-(input)/70 px-[15px] py-1 font-bold pointer-events-none!">
                       {category.categoryHeader}
                     </p>
                     <ul>
@@ -82,7 +82,7 @@ export default function DropDown({
                         <li
                           key={option}
                           onClick={handleSelectOption}
-                          className="transition-all duration-300 py-1 px-[15px] capitalize cursor-pointer hover:bg-gray-200"
+                          className="transition-all duration-300 py-1 px-[15px] capitalize cursor-pointer text-(--text-primary) hover:bg-gray-400"
                         >
                           {option}
                         </li>

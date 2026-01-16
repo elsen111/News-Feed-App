@@ -40,7 +40,7 @@ const Theme = () => {
         `}
         />
         <CiLight size={30} className={`
-            w-full absolute right-0 transition duration-300
+            w-full absolute right-0 transition duration-300 text-(--text-primary)
             ${theme === "dark" ? "opacity-0" : "opacity-100"}
         `} />
       </div>

@@ -79,7 +79,7 @@ const NewsCard = ({
   );
 
   return (
-    <div className="rounded-t-[10px] overflow-hidden shadow-md transition duration-300 hover:-translate-y-2.5 hover:shadow-2xl pb-5">
+    <div className="rounded-t-[10px] overflow-hidden shadow-md transition duration-300 hover:-translate-y-2.5 hover:shadow-2xl relative h-[400px] pb-5 bg-(--surface)">
       <div className="relative w-full h-auto sm:h-[380px] md:h-[200px]">
         <img src={image_url || newsImg} onError={handleImageError} className="h-full w-full" />
         <span className="py-1.5 px-2.5 bg-[#147d83] uppercase text-white absolute bottom-0 rounded-tr-[10px] text-[12px] font-bold tracking-[0.5px]">
@@ -94,19 +94,19 @@ const NewsCard = ({
         </div>
       </div>
       <div className="group p-[15px] flex flex-col gap-y-[18px] justify-center h-auto">
-        <div className="opacity-0 flex absolute bottom-1 left-1 right-1 rounded-2xl justify-center items-center transition-all duration-300 md:group-hover:opacity-100">
+        <div className="opacity-0 flex absolute bottom-1 left-1 right-1 rounded-2xl md:group-hover:bg-(--tooltip) justify-center items-center transition-all duration-300 md:group-hover:opacity-100">
           <ToolTip link={link} />
         </div>
-        <h6 className="cursor-pointer">
+        <h6 className="cursor-pointer group">
           <a
             href={link}
             target="_blank"
-            className="text-[18px] font-medium tracking-[1px] hover:underline"
+            className="text-[18px] font-medium text-(--text-primary) tracking-[1px] hover:underline line-clamp-4"
           >
             {title}
           </a>
         </h6>
-        <div className="flex justify-between items-center text-[14px] font-normal tracking-[1px]">
+        <div className="flex justify-between items-center text-[14px] absolute bottom-3 group-hover:bottom-11 transition-all duration-300 left-0 font-normal tracking-[1px] w-full px-[15px] text-(--text-muted)">
           <span> {formattedDate(pubDate).split(" ").slice(0,3).join(" ")} </span>
           <span> by {source_name} </span>
         </div>

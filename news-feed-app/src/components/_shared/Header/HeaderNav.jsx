@@ -62,7 +62,7 @@ export default function HeaderNav({ menuState, closeMenu }) {
     >
       <RiMenuUnfold4Fill
         size={34}
-        className="absolute right-2 cursor-pointer xl:hidden text-primary1"
+        className="absolute right-2 cursor-pointer xl:hidden text-(--text-primary)"
         onClick={closeMenu}
       />
       <div className="block xl:hidden pt-10">

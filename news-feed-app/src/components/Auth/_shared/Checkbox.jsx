@@ -43,7 +43,7 @@ export default function Checkbox({
         `}
       >
         {checked && !indeterminate && (
-          <span className="absolute w-2.5 h-1.5 border-l-2 border-b-2 border-white rotate-[-45deg]" />
+          <span className="absolute w-2.5 h-1.5 border-l-2 border-b-2 border-white -rotate-45" />
         )}
 
         {indeterminate && !checked && (
@@ -51,7 +51,7 @@ export default function Checkbox({
         )}
       </span>
 
-      {label && <span className="text-sm text-primary-1">{label}</span>}
+      {label && <span className="text-sm text-(--form)">{label}</span>}
     </label>
   );
 }
