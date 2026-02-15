@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-export default function DropDown({
+const DropDown = ({
   optionList,
   filterType,
   isOpen,
@@ -10,8 +10,8 @@ export default function DropDown({
   onSelect,
   onToggle,
   reset,
-  setReset
-}) {
+  setReset,
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectOption = (e) => {
@@ -29,11 +29,13 @@ export default function DropDown({
   };
 
   useEffect(() => {
-    if(reset) {
-      filterType === 'category' ? setSelectedOption('all categories') : setSelectedOption(optionList[0]);
+    if (reset) {
+      filterType === "category"
+        ? setSelectedOption("all categories")
+        : setSelectedOption(optionList[0]);
       setReset(false);
     }
-  }, [reset])
+  }, [reset]);
 
   return (
     <div className="bg-(--input) w-full px-[15px] relative py-1 transition-all duration-300 hover:bg-(--input)/80 hover:border-blue-100 rounded-md text-[16px]">
@@ -109,4 +111,6 @@ export default function DropDown({
       )}
     </div>
   );
-}
+};
+
+export default memo(DropDown);

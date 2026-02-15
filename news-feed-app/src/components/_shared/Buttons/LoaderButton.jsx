@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const LoaderButton = ({ onLoadNews, loading }) => {
   return (
     <button
@@ -16,4 +18,4 @@ const LoaderButton = ({ onLoadNews, loading }) => {
   );
 };
 
-export default LoaderButton;
+export default memo(LoaderButton);

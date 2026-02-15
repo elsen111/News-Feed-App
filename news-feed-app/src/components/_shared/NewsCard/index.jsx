@@ -3,7 +3,7 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { formattedDate } from "../../../utils/date";
 import { savePost, removePost } from "../../../redux/features/savedPostsSlices";
 import { addParams, removeParams} from "../../../redux/features/suggestionSlices";
@@ -115,4 +115,4 @@ const NewsCard = ({
   );
 };
 
-export default NewsCard;
+export default memo(NewsCard);

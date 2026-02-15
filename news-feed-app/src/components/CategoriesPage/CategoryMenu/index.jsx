@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { MdOutlineFilterList } from "react-icons/md";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import FilterModal from "./FilterModal";
 
-import { setCategoriesParam, fetchSelectedCategories } from "../../../redux/features/categoryMenuSlices";
+import {
+  setCategoriesParam,
+  fetchSelectedCategories,
+} from "../../../redux/features/categoryMenuSlices";
 import { addParams } from "../../../redux/features/suggestionSlices";
 
 export default function CategoryMenu() {
@@ -46,17 +49,19 @@ export default function CategoryMenu() {
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => setModalOpen(false);
+  const handleCloseModal = useCallback(() => setModalOpen(false), []);
 
   const handleSelectMenuItem = (e) => {
     const selectedItem = e.target.textContent.toLowerCase();
-    const selectedCategories = categories.find(category => category.title === selectedItem);
+    const selectedCategories = categories.find(
+      (category) => category.title === selectedItem,
+    );
     const param = `&category=${selectedCategories.code}`;
-    
+
     dispatch(setCategoriesParam(param));
     dispatch(fetchSelectedCategories());
     dispatch(addParams(param));
-  }
+  };
 
   useEffect(() => {
     const handlePosition = () => {

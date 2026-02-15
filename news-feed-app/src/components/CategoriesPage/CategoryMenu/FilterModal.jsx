@@ -1,12 +1,16 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterOptions, fetchFilteredNews, resetFilters } from "../../../redux/features/filterSlice";
+import {
+  setFilterOptions,
+  fetchFilteredNews,
+  resetFilters,
+} from "../../../redux/features/filterSlice";
 import DropDown from "./DropDown";
 import Input from "./Input";
 import { countries } from "../../../api/countries";
 import { languages } from "../../../api/languages";
 
-export default function FilterModal({ modalOpen, handleCloseModal }) {
+const FilterModal = ({ modalOpen, handleCloseModal }) => {
   const dispatch = useDispatch();
   const filterOptions = useSelector((state) => state.filters);
 
@@ -110,33 +114,36 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
     }
   }, [modalOpen]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setActiveControl(null);
-  };
+  }, []);
 
-  const handleOpen = (filterType) => {
+  const handleOpen = useCallback((filterType) => {
     setActiveControl(filterType);
-  };
+  }, []);
 
-  const handleToggle = (filterType) => {
-    setActiveControl(prev => (prev === filterType) ? null : filterType);
-  }
+  const handleToggle = useCallback((filterType) => {
+    setActiveControl((prev) => (prev === filterType ? null : filterType));
+  }, []);
 
-  const handleSelect = (filterType, selectedValue) => {
-    dispatch(setFilterOptions({ filterType, value: selectedValue }))
+  const handleSelect = useCallback(
+    (filterType, selectedValue) => {
+      dispatch(setFilterOptions({ filterType, value: selectedValue }));
 
-    setActiveControl(null);
-  };
+      setActiveControl(null);
+    },
+    [dispatch],
+  );
 
-  const handleSubmitFilter = () => {
+  const handleSubmitFilter = useCallback(() => {
     console.log(filterOptions);
     dispatch(fetchFilteredNews());
-  };
+  }, [filterOptions, dispatch]);
 
-  const handleResetFilter = () => {
+  const handleResetFilter = useCallback(() => {
     dispatch(resetFilters());
     setReset(true);
-  }
+  }, [dispatch]);
 
   return (
     <aside
@@ -214,4 +221,6 @@ export default function FilterModal({ modalOpen, handleCloseModal }) {
       </button>
     </aside>
   );
-}
+};
+
+export default memo(FilterModal);

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -32,14 +32,17 @@ export default function NewsContainer({
   const filters = useSelector((state) => state.filters);
   const { appliedToken } = filters;
 
-  const count = useSelector(state => state.savedPosts.renderedPostsCount);
+  const count = useSelector((state) => state.savedPosts.renderedPostsCount);
   const SAVED_PAGE_CHUNK = 12;
 
   const prevNewsPostsRef = useRef();
   const prevNextPageIdRef = useRef();
 
   useEffect(() => {
-    if (prevNewsPostsRef.current === newsPosts && prevNextPageIdRef.current === nextPageId) {
+    if (
+      prevNewsPostsRef.current === newsPosts &&
+      prevNextPageIdRef.current === nextPageId
+    ) {
       return;
     }
 
@@ -50,8 +53,10 @@ export default function NewsContainer({
     setNextNewsPage(nextPageId);
 
     if (pathname === "/saved") {
-      console.log(newsPosts)
-      setRenderedSavedPosts((newsPosts ?? []).slice(0, count || SAVED_PAGE_CHUNK));
+      console.log(newsPosts);
+      setRenderedSavedPosts(
+        (newsPosts ?? []).slice(0, count || SAVED_PAGE_CHUNK),
+      );
       dispatch(setRenderedPostsCount(SAVED_PAGE_CHUNK));
     } else {
       setRenderedSavedPosts(newsPosts);
@@ -67,10 +72,15 @@ export default function NewsContainer({
   }, [newsList, nextNewsPage, renderedSavedPosts, newsPosts, pathname]);
 
   if (error) {
-    return <p className="text-red-500 text-base text-center text-[18px] px-5"> Failed to load news. Something went wrong! </p>;
+    return (
+      <p className="text-red-500 text-base text-center text-[18px] px-5">
+        {" "}
+        Failed to load news. Something went wrong!{" "}
+      </p>
+    );
   }
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = useCallback(async () => {
     if (pathname === "/saved") {
       const totalSavedPosts = newsPosts ?? [];
       const renderedPostsCount = renderedSavedPosts.length;
@@ -82,10 +92,10 @@ export default function NewsContainer({
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const morePosts = totalSavedPosts.slice(
           renderedPostsCount,
-          renderedPostsCount + SAVED_PAGE_CHUNK
+          renderedPostsCount + SAVED_PAGE_CHUNK,
         );
         setRenderedSavedPosts((prev) => [...prev, ...morePosts]);
-        dispatch(setRenderedPostsCount(renderedPostsCount + SAVED_PAGE_CHUNK))
+        dispatch(setRenderedPostsCount(renderedPostsCount + SAVED_PAGE_CHUNK));
       } catch (error) {
         console.log("Failed to load more saved posts", error);
       } finally {
@@ -126,22 +136,21 @@ export default function NewsContainer({
       let nextNewsPosts = response.results ?? [];
       const nextId = response.nextPage ?? null;
 
-      
-        if (filterParams && filters.sort === "sort by source priority") {
-          console.log('Sorting according to source priority: ');
-          console.log('Before: ');
-          console.log(nextNewsPosts);
+      if (filterParams && filters.sort === "sort by source priority") {
+        console.log("Sorting according to source priority: ");
+        console.log("Before: ");
+        console.log(nextNewsPosts);
 
-          nextNewsPosts = [...nextNewsPosts].sort((prev, next) => {
-            const pp = prev.source_priority ?? Number.MAX_SAFE_INTEGER;
-            const np = next.source_priority ?? Number.MAX_SAFE_INTEGER;
+        nextNewsPosts = [...nextNewsPosts].sort((prev, next) => {
+          const pp = prev.source_priority ?? Number.MAX_SAFE_INTEGER;
+          const np = next.source_priority ?? Number.MAX_SAFE_INTEGER;
 
-            return pp - np;
-          });
+          return pp - np;
+        });
 
-          console.log('After: ');
-          console.log(nextNewsPosts);
-        }
+        console.log("After: ");
+        console.log(nextNewsPosts);
+      }
 
       setNewsList((prevNewsList) => [...prevNewsList, ...nextNewsPosts]);
       setNextNewsPage(nextId);
@@ -150,7 +159,21 @@ export default function NewsContainer({
     } finally {
       setLoading(false);
     }
-  };
+  }, [
+    pathname,
+    newsPosts,
+    renderedSavedPosts,
+    SAVED_PAGE_CHUNK,
+    dispatch,
+    loading,
+    nextNewsPage,
+    filterParams,
+    appliedToken,
+    searchQuery,
+    categoriesParam,
+    suggestionParam,
+    filters.sort,
+  ]);
 
   const displayedNews = pathname === "/saved" ? renderedSavedPosts : newsList;
 
@@ -159,8 +182,8 @@ export default function NewsContainer({
   return (
     <section className="flex flex-col justify-center items-center gap-5 sm:gap-[35px]">
       {displayedNews.length === 0 && (
-        <p className="text-gray-500 text-base text-center text-[18px]"> 
-        {pathname === "/saved" ? "No saved posts." : "No news found."}  
+        <p className="text-gray-500 text-base text-center text-[18px]">
+          {pathname === "/saved" ? "No saved posts." : "No news found."}
         </p>
       )}
       <section className="grid grid-cols-1 gap-y-[30px] gap-x-5 sm:gap-y-[50px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

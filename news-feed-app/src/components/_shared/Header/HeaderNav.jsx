@@ -2,33 +2,32 @@ import Navbar from "../Navbar";
 import Logo from "../Logo";
 import LoginLink from "./LoginLink";
 import { RiMenuUnfold4Fill } from "react-icons/ri";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { useLocation } from "react-router-dom";
 
-export default function HeaderNav({ menuState, closeMenu }) {
+const HeaderNav = ({ menuState, closeMenu }) => {
   const navbarRef = useRef();
-  const location = useLocation()
+  const location = useLocation();
 
   // To close the navbar when clicking outside except it for mobile view
   useEffect(() => {
-      const handleClick = (e) => {
-          if (!navbarRef.current.contains(e.target)) {
-          closeMenu();
-        }
+    const handleClick = (e) => {
+      if (!navbarRef.current.contains(e.target)) {
+        closeMenu();
       }
+    };
 
-      if(menuState) {
-        window.addEventListener('mousedown', handleClick)
-      }
+    if (menuState) {
+      window.addEventListener("mousedown", handleClick);
+    }
 
-    return () =>
-      window.removeEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
   }, [menuState]);
 
   // To close the navbar by default when navigating between pages for mobile view
   useEffect(() => {
-    closeMenu()
-  }, [location.pathname])
+    closeMenu();
+  }, [location.pathname]);
 
   const links = [
     {
@@ -76,4 +75,6 @@ export default function HeaderNav({ menuState, closeMenu }) {
       </div>
     </div>
   );
-}
+};
+
+export default memo(HeaderNav);

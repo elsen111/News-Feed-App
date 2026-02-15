@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { RiMenuUnfold3Fill } from "react-icons/ri";
 import Logo from "../Logo";
@@ -13,9 +13,9 @@ export default function Header() {
   const { pathname } = useLocation();
 
   const openMenu = () => SetMenuState(true);
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     SetMenuState(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (menuState) {
@@ -44,7 +44,7 @@ export default function Header() {
 
     return () => window.removeEventListener("scroll", handleHeight);
   }, []);
- 
+
   return (
     <>
       <header
