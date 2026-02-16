@@ -1,4 +1,4 @@
-import { fetchData } from "./fetchData";
+import { fetchData } from "../utils/fetchData";
 
 export const homePageLoader = async () => {
   try {

@@ -8,8 +8,8 @@ import { formattedDate } from "../../../utils/date";
 import { savePost, removePost } from "../../../redux/features/savedPostsSlices";
 import { addParams, removeParams} from "../../../redux/features/suggestionSlices";
 
-import { countries } from "../../../api/countries";
-import { languages } from "../../../api/languages";
+import { countries } from "../../../api/services/countries";
+import { languages } from "../../../api/services/languages";
 
 import newsImg from '../../../assets/images/news.jpg'
 

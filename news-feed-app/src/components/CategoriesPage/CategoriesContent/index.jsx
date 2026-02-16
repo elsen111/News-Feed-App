@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
 
-import { fetchData } from "../../../api/fetchData";
+import { fetchData } from "../../../api/utils/fetchData";
 import { addParams } from "../../../redux/features/suggestionSlices";
 
 import Content from "../../_shared/Content";

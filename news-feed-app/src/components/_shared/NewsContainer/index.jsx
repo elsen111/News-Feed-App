@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-import { fetchData } from "../../../api/fetchData";
+import { fetchData } from "../../../api/utils/fetchData";
 
 import NewsCard from "../NewsCard";
 import LoaderButton from "../Buttons/LoaderButton";

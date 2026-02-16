@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { fetchData } from "../../../api/fetchData";
+import { fetchData } from "../../../api/utils/fetchData";
 import { useEffect, useState } from "react";
 
 import Content from "../../_shared/Content";

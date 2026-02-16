@@ -12,4 +12,18 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("@mui")) return "mui";
+            if (id.includes("gsap")) return "gsap";
+            if (id.includes("react-icons")) return "icons";
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
 });

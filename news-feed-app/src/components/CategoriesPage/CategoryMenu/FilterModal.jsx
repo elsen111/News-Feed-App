@@ -7,8 +7,8 @@ import {
 } from "../../../redux/features/filterSlice";
 import DropDown from "./DropDown";
 import Input from "./Input";
-import { countries } from "../../../api/countries";
-import { languages } from "../../../api/languages";
+import { countries } from "../../../api/services/countries";
+import { languages } from "../../../api/services/languages";
 
 const FilterModal = ({ modalOpen, handleCloseModal }) => {
   const dispatch = useDispatch();

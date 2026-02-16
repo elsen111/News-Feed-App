@@ -1,5 +1,5 @@
-import { BASE_API_LINK } from "./api.config";
-import { httpError } from "./httpErrors";
+import { BASE_API_LINK } from "../config/api.config";
+import { httpError } from "../errors/httpErrors";
 
 export const fetchData = async(urlParams) => {
     try {

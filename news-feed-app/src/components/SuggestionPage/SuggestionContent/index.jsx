@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Content from "../../_shared/Content";
 import NewsContainer from "../../_shared/NewsContainer";
 import { useEffect, useState, useRef } from "react";
-import { fetchData } from "../../../api/fetchData";
+import { fetchData } from "../../../api/utils/fetchData";
 
 import SkeletonUI from "../../_shared/Skeleton";
 
